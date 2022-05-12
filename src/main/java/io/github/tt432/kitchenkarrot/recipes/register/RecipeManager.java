@@ -2,6 +2,7 @@ package io.github.tt432.kitchenkarrot.recipes.register;
 
 import io.github.tt432.kitchenkarrot.Kitchenkarrot;
 import io.github.tt432.kitchenkarrot.recipes.base.BaseRecipe;
+import io.github.tt432.kitchenkarrot.recipes.recipe.AirCompressorRecipe;
 import io.github.tt432.kitchenkarrot.recipes.recipe.CocktailRecipe;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeType;
@@ -23,6 +24,10 @@ public class RecipeManager {
 
     public static List<CocktailRecipe> getCocktailRecipes(Level level) {
         return level.getRecipeManager().getAllRecipesFor(RecipeTypes.COCKTAIL.get());
+    }
+
+    public static List<AirCompressorRecipe> getAirCompressorRecipe(Level level) {
+        return level.getRecipeManager().getAllRecipesFor(RecipeTypes.AIR_COMPRESSOR.get());
     }
 
     public static void register(IEventBus bus) {

@@ -42,7 +42,11 @@ public class CocktailItem extends Item {
 
         if (recipe != null && pLivingEntity instanceof Player player) {
             player.getFoodData().eat(recipe.content.hunger, recipe.content.saturation);
-            pStack.shrink(1);
+
+            if (!player.getAbilities().instabuild) {
+                pStack.shrink(1);
+            }
+
             for (EffectStack effectStack : recipe.content.effect) {
                 player.addEffect(effectStack.get());
             }
@@ -61,7 +65,7 @@ public class CocktailItem extends Item {
         var name = getCocktail(p_41455_);
 
         if (name != null) {
-            return super.getDescriptionId(p_41455_) + "." + name.toString().replace(":", ".");
+            return name.toString().replace(":", ".");
         }
 
         return super.getDescriptionId(p_41455_);

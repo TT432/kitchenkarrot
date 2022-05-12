@@ -4,6 +4,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import io.github.tt432.kitchenkarrot.util.json.serializer.IngredientSerializer;
 import io.github.tt432.kitchenkarrot.util.json.serializer.ItemStackSerializer;
+import io.github.tt432.kitchenkarrot.util.json.serializer.NonNullListSerializer;
+import net.minecraft.core.NonNullList;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 
@@ -25,7 +27,8 @@ public enum JsonUtils {
                 .enableComplexMapKeySerialization()
                 // 注册自定义类型的序列化/反序列化器
                 .registerTypeAdapter(Ingredient.class, new IngredientSerializer())
-                .registerTypeAdapter(ItemStack.class, new ItemStackSerializer());
+                .registerTypeAdapter(ItemStack.class, new ItemStackSerializer())
+                .registerTypeAdapter(NonNullList.class, new NonNullListSerializer());
 
         // 无视 @Expose 注解的 Gson 实例
         noExpose = builder.create();

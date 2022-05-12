@@ -16,9 +16,16 @@ public class DataGenerators {
     @SubscribeEvent
     public static void gatherData(GatherDataEvent event) {
         DataGenerator generator = event.getGenerator();
+        var file = event.getExistingFileHelper();
 
         if (event.includeClient()) {
             generator.addProvider(new TutItemModels(generator, event.getExistingFileHelper()));
+        }
+
+        if (event.includeServer()) {
+            var blockTag = new TutBlockTags(generator, file);
+            generator.addProvider(blockTag);
+            generator.addProvider(new TutItemTags(generator, blockTag, event.getExistingFileHelper()));
         }
     }
 }

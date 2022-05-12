@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "kitchenkarrot:air_compressor",
+      "y": 270
+    },
+    "facing=north": {
+      "model": "kitchenkarrot:air_compressor",
+      "y": 180
+    },
+    "facing=south": {
+      "model": "kitchenkarrot:air_compressor"
+    },
+    "facing=west": {
+      "model": "kitchenkarrot:air_compressor",
+      "y": 90
+    }
+  }
+}

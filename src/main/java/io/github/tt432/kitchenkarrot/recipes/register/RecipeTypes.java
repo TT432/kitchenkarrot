@@ -1,6 +1,7 @@
 package io.github.tt432.kitchenkarrot.recipes.register;
 
 import io.github.tt432.kitchenkarrot.recipes.base.BaseRecipe;
+import io.github.tt432.kitchenkarrot.recipes.recipe.AirCompressorRecipe;
 import io.github.tt432.kitchenkarrot.recipes.recipe.CocktailRecipe;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
@@ -16,6 +17,7 @@ public class RecipeTypes {
     private static final DeferredRegister<RecipeType<?>> TYPES = DeferredRegister.create(Registry.RECIPE_TYPE.key(), RecipeManager.MOD_ID);
 
     public static final RegistryObject<RecipeType<CocktailRecipe>> COCKTAIL = register("cocktail");
+    public static final RegistryObject<RecipeType<AirCompressorRecipe>> AIR_COMPRESSOR = register("air_compressing");
 
     private static <TYPE extends BaseRecipe<TYPE>> RegistryObject<RecipeType<TYPE>> register(String name) {
         return TYPES.register(name, () -> new RecipeType<>() {

@@ -34,6 +34,7 @@ f8857edc40125ad43e63b7a90c323c7c4ea0ac5f assets/kitchenkarrot/models/item/kelp_w
 15726be21e82f2f4049df89c1a3cf56b2b3e8e43 assets/kitchenkarrot/models/item/leafy_fresh_chocolate.json
 d1b72bf886a0e62db8abd078083b904644d26895 assets/kitchenkarrot/models/item/mead.json
 d3d49638698f32663429e3fee57e9226d08bbfd2 assets/kitchenkarrot/models/item/mead_base.json
+eada95ab09ec6939b597d51348885ee6c7213177 assets/kitchenkarrot/models/item/milk.json
 139bdd5ef737d76202905c97f2aafb775489d57b assets/kitchenkarrot/models/item/monster_lasagna.json
 0a1f9e8493c8b73201bd58f47ea10e434edf566c assets/kitchenkarrot/models/item/pickled_sea_pickles.json
 e2fd041ed82a10bf90417aa65ae780c7c70a6aba assets/kitchenkarrot/models/item/pillager_pie.json
@@ -57,3 +58,5 @@ e2afd7e5e68216743bf63ee63fcb8c4c15b90004 assets/kitchenkarrot/models/item/sweet_
 f7fe9b648303aef0951c3b1ac30e09fcc40c1f3a assets/kitchenkarrot/models/item/sweet_loaf_slice.json
 52361c0002978142a93a8578581452c979419a40 assets/kitchenkarrot/models/item/vodka.json
 612ba9c930e01a160a78446e5b0fba9e63c8677a assets/kitchenkarrot/models/item/vodka_base.json
+dad2d6f5405753687a4d6ac27bc40d0ef44861f7 assets/kitchenkarrot/models/item/water.json
+a9ed3d6fc978c8da879c01d18e537ab807d53bf9 data/kitchenkarrot/tags/items/container_item.json

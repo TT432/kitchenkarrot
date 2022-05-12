@@ -1,5 +1,8 @@
 package io.github.tt432.kitchenkarrot;
 
+import io.github.tt432.kitchenkarrot.block.ModBlocks;
+import io.github.tt432.kitchenkarrot.blockentity.ModBlockEntities;
+import io.github.tt432.kitchenkarrot.blockentity.menu.ModMenuTypes;
 import io.github.tt432.kitchenkarrot.item.ModItems;
 import io.github.tt432.kitchenkarrot.recipes.register.RecipeManager;
 import net.minecraft.world.item.CreativeModeTab;
@@ -29,7 +32,11 @@ public class Kitchenkarrot {
     };
 
     public Kitchenkarrot() {
-        ModItems.ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
-        RecipeManager.register(FMLJavaModLoadingContext.get().getModEventBus());
+        var bus = FMLJavaModLoadingContext.get().getModEventBus();
+        ModBlocks.BLOCKS.register(bus);
+        ModItems.ITEMS.register(bus);
+        ModMenuTypes.MENUS.register(bus);
+        ModBlockEntities.BLOCK_ENTITIES.register(bus);
+        RecipeManager.register(bus);
     }
 }
