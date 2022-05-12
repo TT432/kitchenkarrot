@@ -19,14 +19,16 @@ import net.minecraftforge.registries.RegistryObject;
 public class ModItems {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Kitchenkarrot.MOD_ID);
 
+    public static final RegistryObject<Item> ROCK_SALT = block("rock_salt", ModBlocks.ROCK_SALT);
+    public static final RegistryObject<Item> SEA_SALT = block("sea_salt", ModBlocks.SEA_SALT);
+    public static final RegistryObject<Item> FINE_SALT = block("fine_salt", ModBlocks.FINE_SALT);
+    public static final RegistryObject<Item> SUNFLOWER_OIL = block("sunflower_oil", ModBlocks.SUNFLOWER_OIL);
+    public static final RegistryObject<Item> ACORN_OIL = block("acorn_oil", ModBlocks.ACORN_OIL);
+    public static final RegistryObject<Item> CHORUS_OIL = block("chorus_oil", ModBlocks.CHORUS_OIL);
+
+
     public static final RegistryObject<Item> ICE_CUBES = simple("ice_cubes");
     public static final RegistryObject<Item> CARROT_SPICES = simple("carrot_spices");
-    public static final RegistryObject<Item> ROCK_SALT = simple("rock_salt");
-    public static final RegistryObject<Item> SEA_SALT = simple("sea_salt");
-    public static final RegistryObject<Item> FINE_SALT = simple("fine_salt");
-    public static final RegistryObject<Item> SUNFLOWER_OIL = simple("sunflower_oil");
-    public static final RegistryObject<Item> ACORN_OIL = simple("acorn_oil");
-    public static final RegistryObject<Item> CHORUS_OIL = simple("chorus_oil");
     public static final RegistryObject<Item> EMPTY_CAN = simple("empty_can");
     public static final RegistryObject<Item> RAW_SWEET_LOAF = simple("raw_sweet_loaf");
     public static final RegistryObject<Item> SWEET_LOAF = simple("sweet_loaf");
