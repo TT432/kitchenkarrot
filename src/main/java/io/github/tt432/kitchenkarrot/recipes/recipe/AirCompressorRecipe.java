@@ -5,7 +5,6 @@ import com.google.gson.annotations.SerializedName;
 import io.github.tt432.kitchenkarrot.recipes.base.BaseRecipe;
 import io.github.tt432.kitchenkarrot.recipes.register.RecipeSerializers;
 import io.github.tt432.kitchenkarrot.recipes.register.RecipeTypes;
-import io.github.tt432.kitchenkarrot.tag.ModItemTags;
 import net.minecraft.core.NonNullList;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -43,7 +42,11 @@ public class AirCompressorRecipe extends BaseRecipe<AirCompressorRecipe> {
     }
 
     public boolean testContainer(ItemStack stack) {
-        return container == null ? stack.is(ModItemTags.CONTAINER_ITEM) : container.test(stack);
+        return container == null || container.test(stack);
+    }
+
+    public Ingredient getContainer() {
+        return container;
     }
 
     @Override

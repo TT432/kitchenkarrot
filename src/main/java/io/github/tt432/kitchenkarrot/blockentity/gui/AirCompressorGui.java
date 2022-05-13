@@ -37,8 +37,8 @@ public class AirCompressorGui extends AbstractContainerScreen<AirCompressorMenu>
     public void render(PoseStack matrixStack, int mouseX, int mouseY, float partialTicks) {
         this.renderBackground(matrixStack);
         super.render(matrixStack, mouseX, mouseY, partialTicks);
-        this.renderTooltip(matrixStack, mouseX, mouseY);
         renderSlots(matrixStack);
+        this.renderTooltip(matrixStack, mouseX, mouseY);
     }
 
     protected void renderSlots(PoseStack ps) {

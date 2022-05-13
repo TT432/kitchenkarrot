@@ -90,7 +90,7 @@ public class AirCompressorBlockEntity extends KKBlockEntity {
         if (progress == 0) {
             // 尚未开始
             if (!recipeValid(items)) {
-                if (!input2.getStackInSlot(0).isEmpty()) {
+                if (burnTime > 0 || !input2.getStackInSlot(0).isEmpty()) {
                     var recipeList = RecipeManager.getAirCompressorRecipe(level)
                             .stream().filter(r -> r.matches(items)).toArray();
 
@@ -118,7 +118,10 @@ public class AirCompressorBlockEntity extends KKBlockEntity {
                     matchItem.shrink(1);
                 }
 
-                input1.getStackInSlot(4).shrink(1);
+                if (getRecipe().getContainer() != null) {
+                    input1.extractItem(4, 1, false);
+                }
+
                 output.insertItem(0, recipe.getResultItem(), false);
 
                 stop();
@@ -150,7 +153,7 @@ public class AirCompressorBlockEntity extends KKBlockEntity {
 
     protected void addFuel() {
         burnTime = ForgeHooks.getBurnTime(input2.getStackInSlot(0), null);
-        input2.getStackInSlot(0).shrink(1);
+        input2.extractItem(0, 1, false);
         maxBurnTime = burnTime;
 
         setChanged();
