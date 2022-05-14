@@ -17,4 +17,8 @@ public class ModBlockEntities {
     public static final RegistryObject<BlockEntityType<AirCompressorBlockEntity>> AIR_COMPRESSOR =
             BLOCK_ENTITIES.register("air_compressor", () -> BlockEntityType.Builder
                     .of(AirCompressorBlockEntity::new, ModBlocks.AIR_COMPRESSOR.get()).build(null));
+
+    public static final RegistryObject<BlockEntityType<BrewingBarrelBlockEntity>> BREWING_BARREL =
+            BLOCK_ENTITIES.register("brewing_barrel", () -> BlockEntityType.Builder
+                    .of(BrewingBarrelBlockEntity::new, ModBlocks.BREWING_BARREL.get()).build(null));
 }

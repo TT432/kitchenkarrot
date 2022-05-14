@@ -2,6 +2,7 @@ package io.github.tt432.kitchenkarrot.block;
 
 import io.github.tt432.kitchenkarrot.Kitchenkarrot;
 import io.github.tt432.kitchenkarrot.blockentity.AirCompressorBlockEntity;
+import io.github.tt432.kitchenkarrot.blockentity.BrewingBarrelBlockEntity;
 import io.github.tt432.kitchenkarrot.blockentity.ModBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockGetter;
@@ -31,6 +32,17 @@ public class ModBlocks {
                 @Override
                 public BlockEntityType<AirCompressorBlockEntity> getBlockEntity() {
                     return ModBlockEntities.AIR_COMPRESSOR.get();
+                }
+            });
+
+    public static final RegistryObject<Block> BREWING_BARREL = BLOCKS.register("brewing_barrel",
+            () -> new KKEntityBlock<BrewingBarrelBlockEntity>(BlockBehaviour.Properties.of(Material.WOOD)
+                    .strength(2.0f, 2.0f)
+                    .noOcclusion()) {
+
+                @Override
+                public BlockEntityType<BrewingBarrelBlockEntity> getBlockEntity() {
+                    return ModBlockEntities.BREWING_BARREL.get();
                 }
             });
 

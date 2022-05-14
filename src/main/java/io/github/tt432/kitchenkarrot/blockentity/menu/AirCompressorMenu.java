@@ -1,7 +1,6 @@
 package io.github.tt432.kitchenkarrot.blockentity.menu;
 
 import io.github.tt432.kitchenkarrot.blockentity.AirCompressorBlockEntity;
-import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -9,18 +8,11 @@ import net.minecraft.world.item.ItemStack;
 /**
  * @author DustW
  **/
-public class AirCompressorMenu extends KKMenu {
-    public AirCompressorBlockEntity blockEntity;
-
-    public AirCompressorMenu(int pContainerId, Inventory inventory, AirCompressorBlockEntity blockEntity) {
-        super(ModMenuTypes.AIR_COMPRESSOR.get(), pContainerId, inventory);
-        this.blockEntity = blockEntity;
+public class AirCompressorMenu extends KKBeMenu<AirCompressorBlockEntity> {
+    public AirCompressorMenu(int windowId, Inventory inv, AirCompressorBlockEntity blockEntity) {
+        super(ModMenuTypes.AIR_COMPRESSOR.get(), windowId, inv, blockEntity);
         addProgressSlot();
         addItemSlots();
-    }
-
-    public AirCompressorMenu(int windowId, Inventory inv, FriendlyByteBuf data) {
-        this(windowId, inv, (AirCompressorBlockEntity) inv.player.getLevel().getBlockEntity(data.readBlockPos()));
     }
 
     void addProgressSlot() {
@@ -69,10 +61,5 @@ public class AirCompressorMenu extends KKMenu {
 
             return ItemStack.EMPTY;
         }
-    }
-
-    @Override
-    public boolean stillValid(Player pPlayer) {
-        return inventory.stillValid(pPlayer);
     }
 }
