@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "kitchenkarrot:rock_salt"
+      "model": "kitchenkarrot:block/rock_salt"
     }
   }
 }

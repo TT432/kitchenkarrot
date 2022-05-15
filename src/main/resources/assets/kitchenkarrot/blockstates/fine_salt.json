@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "kitchenkarrot:fine_salt"
+      "model": "kitchenkarrot:block/fine_salt"
     }
   }
 }

@@ -25,7 +25,7 @@ public class TutItemModels extends ItemModelProvider {
         ForgeRegistries.ITEMS.forEach(item -> {
             if (item.getRegistryName().getNamespace().equals(DataGenerators.MOD_ID)) {
                 if (item instanceof BlockItem) {
-                    //withExistingParent(item.getRegistryName().getPath(), modLoc("block/" + item.getRegistryName().getPath()));
+                    withExistingParent(item.getRegistryName().getPath(), modLoc("block/" + item.getRegistryName().getPath()));
                 }
                 else {
                     simpleTexture(() -> item);

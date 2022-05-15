@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "kitchenkarrot:sunflower_oil"
+      "model": "kitchenkarrot:block/sunflower_oil"
     }
   }
 }
