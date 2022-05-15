@@ -5,12 +5,12 @@ import net.minecraft.nbt.CompoundTag;
 /**
  * @author DustW
  **/
-public abstract class BeSyncData<V> {
+public abstract class SyncData<V> {
     private V value;
     private boolean changed;
     private final String name;
 
-    protected BeSyncData(V defaultValue, String name) {
+    protected SyncData(String name, V defaultValue) {
         this.value = defaultValue;
         this.name = name;
     }
@@ -18,11 +18,11 @@ public abstract class BeSyncData<V> {
     protected abstract CompoundTag toTag();
     protected abstract V fromTag(CompoundTag tag);
 
-    public V getValue() {
+    public V get() {
         return value;
     }
 
-    public void setValue(V value) {
+    public void set(V value) {
         this.changed = true;
         this.value = value;
     }
