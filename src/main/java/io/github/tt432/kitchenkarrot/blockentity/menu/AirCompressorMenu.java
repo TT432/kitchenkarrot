@@ -2,8 +2,6 @@ package io.github.tt432.kitchenkarrot.blockentity.menu;
 
 import io.github.tt432.kitchenkarrot.blockentity.AirCompressorBlockEntity;
 import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
 
 /**
  * @author DustW
@@ -11,13 +9,7 @@ import net.minecraft.world.item.ItemStack;
 public class AirCompressorMenu extends KKBeMenu<AirCompressorBlockEntity> {
     public AirCompressorMenu(int windowId, Inventory inv, AirCompressorBlockEntity blockEntity) {
         super(ModMenuTypes.AIR_COMPRESSOR.get(), windowId, inv, blockEntity);
-        addProgressSlot();
         addItemSlots();
-    }
-
-    void addProgressSlot() {
-        addDataSlot(() -> blockEntity::getProgress, () -> blockEntity::setProgress);
-        addDataSlot(() -> blockEntity::getBurnTime, () -> blockEntity::setBurnTime);
     }
 
     void addItemSlots() {
@@ -31,35 +23,5 @@ public class AirCompressorMenu extends KKBeMenu<AirCompressorBlockEntity> {
         addSlot(input2, 0, 74 + 1, 58 + 1);
         var output = blockEntity.getOutput();
         addResultSlot(output, 0, 120 + 1, 34 + 1);
-    }
-
-    @Override
-    public ItemStack quickMoveStack(Player player, int index) {
-        var slot = slots.get(index);
-        var slotItem = slot.getItem();
-        var playerSlotSize = 36;
-
-        if (index < playerSlotSize) {
-            for (int i = slots.size() - 1; i >= playerSlotSize; i--) {
-                var temp = slots.get(i);
-
-                if (temp.safeInsert(slotItem).isEmpty()) {
-                    return ItemStack.EMPTY;
-                }
-            }
-
-            return ItemStack.EMPTY;
-        }
-        else {
-            for (int i = 0; i < playerSlotSize; i++) {
-                var temp = slots.get(i);
-
-                if (temp.safeInsert(slotItem).isEmpty()) {
-                    return ItemStack.EMPTY;
-                }
-            }
-
-            return ItemStack.EMPTY;
-        }
     }
 }

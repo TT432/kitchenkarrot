@@ -9,8 +9,8 @@ import net.minecraftforge.registries.ForgeRegistries;
  * @author DustW
  **/
 public class FluidSyncData extends SyncData<FluidStack> {
-    protected FluidSyncData(String name, FluidStack defaultValue) {
-        super(name, defaultValue);
+    public FluidSyncData(String name, FluidStack defaultValue, boolean needSave) {
+        super(name, defaultValue, needSave);
     }
 
     @Override

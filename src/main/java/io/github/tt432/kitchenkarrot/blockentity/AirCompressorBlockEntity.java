@@ -1,6 +1,9 @@
 package io.github.tt432.kitchenkarrot.blockentity;
 
 import io.github.tt432.kitchenkarrot.blockentity.menu.AirCompressorMenu;
+import io.github.tt432.kitchenkarrot.blockentity.sync.IntSyncData;
+import io.github.tt432.kitchenkarrot.blockentity.sync.StringSyncData;
+import io.github.tt432.kitchenkarrot.blockentity.sync.SyncData;
 import io.github.tt432.kitchenkarrot.recipes.recipe.AirCompressorRecipe;
 import io.github.tt432.kitchenkarrot.recipes.register.RecipeManager;
 import io.github.tt432.kitchenkarrot.tag.ModItemTags;
@@ -62,15 +65,24 @@ public class AirCompressorBlockEntity extends KKBlockEntity {
         super(ModBlockEntities.AIR_COMPRESSOR.get(), pWorldPosition, pBlockState);
     }
 
-    int progress;
-    int maxBurnTime;
-    int burnTime;
+    IntSyncData progress;
+    IntSyncData maxBurnTime;
+    IntSyncData burnTime;
+    StringSyncData recipeId;
     AirCompressorRecipe recipe;
-    ResourceLocation recipeId;
+
+    @Override
+    protected void syncDataInit(List<SyncData<?>> list) {
+        list.add(burnTime = new IntSyncData("burn_time", 0, true));
+        list.add(recipeId = new StringSyncData("recipe", "", true));
+        list.add(progress = new IntSyncData("progress", 0, true));
+        list.add(maxBurnTime = new IntSyncData("max_burn_time", 0, true));
+    }
 
     public AirCompressorRecipe getRecipe() {
-        return recipe == null && recipeId != null ?
-                recipe = (AirCompressorRecipe) level.getRecipeManager().byKey(recipeId).get() : recipe;
+        return recipe == null && !this.recipeId.get().isEmpty() ?
+                recipe = (AirCompressorRecipe) level.getRecipeManager()
+                        .byKey(new ResourceLocation(recipeId.get())).get() : recipe;
     }
 
     @Override
@@ -87,10 +99,10 @@ public class AirCompressorBlockEntity extends KKBlockEntity {
             items.add(input1.getStackInSlot(i));
         }
 
-        if (progress == 0) {
+        if (progress.get() == 0) {
             // 尚未开始
             if (!recipeValid(items)) {
-                if (burnTime > 0 || !input2.getStackInSlot(0).isEmpty()) {
+                if (burnTime.get() > 0 || !input2.getStackInSlot(0).isEmpty()) {
                     var recipeList = RecipeManager.getAirCompressorRecipe(level)
                             .stream().filter(r -> r.matches(items)).toArray();
 
@@ -99,9 +111,9 @@ public class AirCompressorBlockEntity extends KKBlockEntity {
 
                         if (output.insertItem(0, r.getResultItem(), true).isEmpty()) {
                             setRecipe(r);
-                            progress = recipe.getCraftingTime();
+                            progress.set(recipe.getCraftingTime());
 
-                            if (burnTime == 0) {
+                            if (burnTime.get() == 0) {
                                 addFuel();
                             }
 
@@ -127,16 +139,16 @@ public class AirCompressorBlockEntity extends KKBlockEntity {
                 stop();
             }
         }
-        else if (burnTime != 0 && recipeValid(items)) {
+        else if (burnTime.get() != 0 && recipeValid(items)) {
             // 还在工作
-            progress = Math.max(progress - 1, 0);
+            progress.reduce(1, 0);
         }
         else {
             // 中止
             stop();
         }
 
-        if ((burnTime = Math.max(burnTime - 1, 0)) == 0 && recipeValid(items)) {
+        if (burnTime.reduce(1, 0) == 0 && recipeValid(items)) {
             // 燃料耗尽
             addFuel();
         }
@@ -148,21 +160,21 @@ public class AirCompressorBlockEntity extends KKBlockEntity {
 
     protected void setRecipe(AirCompressorRecipe recipe) {
         this.recipe = recipe;
-        this.recipeId = recipe.getId();
+        this.recipeId.set(recipe.getId().toString());
     }
 
     protected void addFuel() {
-        burnTime = ForgeHooks.getBurnTime(input2.getStackInSlot(0), null);
+        burnTime.set(ForgeHooks.getBurnTime(input2.getStackInSlot(0), null));
         input2.extractItem(0, 1, false);
-        maxBurnTime = burnTime;
+        maxBurnTime.set(burnTime.get());
 
         setChanged();
     }
 
     protected void stop() {
         recipe = null;
-        recipeId = null;
-        progress = 0;
+        recipeId.set("");
+        progress.set(0);
 
         setChanged();
     }
@@ -190,11 +202,7 @@ public class AirCompressorBlockEntity extends KKBlockEntity {
     }
 
     public int getProgress() {
-        return this.progress;
-    }
-
-    public void setProgress(int progress) {
-        this.progress = progress;
+        return this.progress.get();
     }
 
     public int getMaxProgress() {
@@ -202,15 +210,11 @@ public class AirCompressorBlockEntity extends KKBlockEntity {
     }
 
     public int getBurnTime() {
-        return burnTime;
+        return burnTime.get();
     }
 
     public int getMaxBurnTime() {
-        return maxBurnTime;
-    }
-
-    public void setBurnTime(int burnTime) {
-        this.burnTime = burnTime;
+        return maxBurnTime.get();
     }
 
     public ItemStackHandler getInput1() {
@@ -227,6 +231,8 @@ public class AirCompressorBlockEntity extends KKBlockEntity {
 
     @Override
     protected void saveAdditional(CompoundTag pTag) {
+        super.saveAdditional(pTag);
+
         var input1 = getInput1().serializeNBT();
         var input2 = getInput2().serializeNBT();
         var output = getOutput().serializeNBT();
@@ -234,45 +240,16 @@ public class AirCompressorBlockEntity extends KKBlockEntity {
         pTag.put("input1", input1);
         pTag.put("input2", input2);
         pTag.put("output", output);
-
-        pTag.putInt("progress", progress);
-        pTag.putInt("burnTime", burnTime);
-        pTag.putInt("maxBurn", maxBurnTime);
-
-        if (recipeId != null) {
-            pTag.putString("recipe", recipeId.toString());
-        }
     }
 
     @Override
     public void load(CompoundTag pTag) {
-        if (!pTag.contains("sync")) {
+        super.load(pTag);
+
+        if (!isSyncTag(pTag)) {
             input1.deserializeNBT(pTag.getCompound("input1"));
             input2.deserializeNBT(pTag.getCompound("input2"));
             output.deserializeNBT(pTag.getCompound("output"));
-
-            progress = pTag.getInt("progress");
-            burnTime = pTag.getInt("burnTime");
         }
-
-        if (pTag.contains("recipe")) {
-            recipeId = new ResourceLocation(pTag.getString("recipe"));
-        }
-
-        maxBurnTime = pTag.getInt("maxBurn");
-    }
-
-    @Override
-    public CompoundTag getUpdateTag() {
-        var result = new CompoundTag();
-
-        if (recipeId != null) {
-            result.putString("recipe", recipeId.toString());
-        }
-
-        result.putInt("maxBurn", maxBurnTime);
-        result.putBoolean("sync", true);
-
-        return result;
     }
 }

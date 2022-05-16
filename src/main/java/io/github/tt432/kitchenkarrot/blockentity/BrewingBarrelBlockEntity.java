@@ -1,6 +1,8 @@
 package io.github.tt432.kitchenkarrot.blockentity;
 
 import io.github.tt432.kitchenkarrot.blockentity.menu.BrewingBarrelMenu;
+import io.github.tt432.kitchenkarrot.blockentity.sync.FluidSyncData;
+import io.github.tt432.kitchenkarrot.blockentity.sync.SyncData;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.player.Inventory;
@@ -11,6 +13,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
 import org.jetbrains.annotations.NotNull;
@@ -22,12 +25,24 @@ import java.util.List;
  * @author DustW
  **/
 public class BrewingBarrelBlockEntity extends KKBlockEntity {
-    FluidTank input1 = new FluidTank(4000, (f) -> f.getFluid() == Fluids.WATER);
+    FluidTank input1 = new FluidTank(4000, (f) -> f.getFluid() == Fluids.WATER) {
+        @Override
+        protected void onContentsChanged() {
+            BrewingBarrelBlockEntity.this.fluid.set(fluid);
+        }
+    };
     KKItemStackHandler input2 = new KKItemStackHandler(this, 6);
     KKItemStackHandler result = new KKItemStackHandler(this, 1);
+    private final FluidSyncData fluid =
+            new FluidSyncData("fluid", FluidStack.EMPTY, true);
 
     public BrewingBarrelBlockEntity(BlockPos pWorldPosition, BlockState pBlockState) {
         super(ModBlockEntities.BREWING_BARREL.get(), pWorldPosition, pBlockState);
+    }
+
+    @Override
+    protected void syncDataInit(List<SyncData<?>> list) {
+        list.add(fluid);
     }
 
     @Override

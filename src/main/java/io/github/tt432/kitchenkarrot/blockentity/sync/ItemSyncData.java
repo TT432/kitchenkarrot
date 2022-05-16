@@ -7,8 +7,8 @@ import net.minecraft.world.item.ItemStack;
  * @author DustW
  **/
 public class ItemSyncData extends SyncData<ItemStack> {
-    protected ItemSyncData(String name, ItemStack defaultValue) {
-        super(name, defaultValue);
+    public ItemSyncData(String name, ItemStack defaultValue, boolean needSave) {
+        super(name, defaultValue, needSave);
     }
 
     @Override

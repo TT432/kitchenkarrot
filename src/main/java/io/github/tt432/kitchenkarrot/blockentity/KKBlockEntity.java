@@ -1,6 +1,8 @@
 package io.github.tt432.kitchenkarrot.blockentity;
 
+import io.github.tt432.kitchenkarrot.blockentity.sync.SyncData;
 import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
@@ -21,24 +23,59 @@ import java.util.List;
  * @author DustW
  **/
 public abstract class KKBlockEntity extends BlockEntity implements MenuProvider {
+    List<SyncData<?>> syncDataList = new ArrayList<>();
+
     public KKBlockEntity(BlockEntityType<?> pType, BlockPos pWorldPosition, BlockState pBlockState) {
         super(pType, pWorldPosition, pBlockState);
+        syncDataInit(syncDataList);
     }
 
-    public boolean needSync;
+    /** 如果你有一些需要自动同步的内容，请放到这里面 */
+    protected void syncDataInit(List<SyncData<?>> list) {
+
+    }
 
     public void tick() {
-        if (needSync) {
-            sync(level);
-            needSync = false;
+        sync(level);
+    }
+
+    private static final String SYNC_KEY = "sync";
+
+    protected boolean isSyncTag(CompoundTag tag) {
+        return tag.contains(SYNC_KEY);
+    }
+
+    @Override
+    public void load(CompoundTag pTag) {
+        super.load(pTag);
+        if (isSyncTag(pTag)) {
+            syncDataList.forEach(data -> data.load(pTag));
+        }
+        else {
+            syncDataList.forEach(data -> {
+                if (data.needSave) {
+                    data.load(pTag);
+                }
+            });
         }
     }
 
     @Override
-    public void setChanged() {
-        needSync = true;
+    protected void saveAdditional(CompoundTag pTag) {
+        super.saveAdditional(pTag);
+        syncDataList.forEach(data -> {
+            if (data.needSave) {
+                data.save(pTag);
+            }
+        });
+    }
 
-        super.setChanged();
+    @Override
+    public CompoundTag getUpdateTag() {
+        CompoundTag result = new CompoundTag();
+        result.putBoolean(SYNC_KEY, true);
+        syncDataList.forEach(data -> data.save(result));
+        return result;
     }
 
     public abstract List<ItemStack> drops();

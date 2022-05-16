@@ -9,10 +9,12 @@ public abstract class SyncData<V> {
     private V value;
     private boolean changed;
     private final String name;
+    public final boolean needSave;
 
-    protected SyncData(String name, V defaultValue) {
+    public SyncData(String name, V defaultValue, boolean needSave) {
         this.value = defaultValue;
         this.name = name;
+        this.needSave = needSave;
     }
 
     protected abstract CompoundTag toTag();
@@ -23,8 +25,8 @@ public abstract class SyncData<V> {
     }
 
     public void set(V value) {
-        this.changed = true;
         this.value = value;
+        onChanged();
     }
 
     public void save(CompoundTag tag) {
@@ -38,5 +40,9 @@ public abstract class SyncData<V> {
         if (tag.contains(name)) {
             value = fromTag(tag.getCompound(name));
         }
+    }
+
+    protected void onChanged() {
+        this.changed = true;
     }
 }
