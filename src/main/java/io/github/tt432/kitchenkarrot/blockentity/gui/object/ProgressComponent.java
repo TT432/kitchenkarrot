@@ -8,7 +8,7 @@ import net.minecraft.resources.ResourceLocation;
 /**
  * @author DustW
  **/
-public class ProgressSlot {
+public class ProgressComponent {
     private final ResourceLocation texture;
     private final int width;
     private final int height;
@@ -17,8 +17,8 @@ public class ProgressSlot {
     AbstractContainerScreen<?> screen;
     boolean vertical;
 
-    public ProgressSlot(AbstractContainerScreen<?> screen, ResourceLocation texture,
-                        int texX, int texY, int width, int height, boolean vertical) {
+    public ProgressComponent(AbstractContainerScreen<?> screen, ResourceLocation texture,
+                             int texX, int texY, int width, int height, boolean vertical) {
         this.texture = texture;
         this.texX = texX;
         this.texY = texY;

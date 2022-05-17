@@ -95,7 +95,7 @@ public class AirCompressorBlockEntity extends KKBlockEntity {
 
         List<ItemStack> items = new ArrayList<>();
 
-        for (int i = 0; i < input1.getSlots(); i++) {
+        for (int i = 0; i < 4; i++) {
             items.add(input1.getStackInSlot(i));
         }
 
@@ -104,7 +104,7 @@ public class AirCompressorBlockEntity extends KKBlockEntity {
             if (!recipeValid(items)) {
                 if (burnTime.get() > 0 || !input2.getStackInSlot(0).isEmpty()) {
                     var recipeList = RecipeManager.getAirCompressorRecipe(level)
-                            .stream().filter(r -> r.matches(items)).toArray();
+                            .stream().filter(r -> r.matches(items) && r.testContainer(input1.getStackInSlot(4))).toArray();
 
                     for (Object obj : recipeList) {
                         var r = (AirCompressorRecipe) obj;
@@ -126,8 +126,8 @@ public class AirCompressorBlockEntity extends KKBlockEntity {
             }
             else {
                 // 结束
-                for (ItemStack matchItem : getRecipe().getMatchItems(items)) {
-                    matchItem.shrink(1);
+                for (int i = 0; i < 4; i++) {
+                    input1.extractItem(i, 1, false);
                 }
 
                 if (getRecipe().getContainer() != null) {
