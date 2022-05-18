@@ -33,6 +33,10 @@ public class AirCompressorRecipe extends BaseRecipe<AirCompressorRecipe> {
         return RecipeMatcher.findMatches(inputs, ingredient) != null;
     }
 
+    public NonNullList<Ingredient> getIngredient() {
+        return ingredient;
+    }
+
     public boolean testContainer(ItemStack stack) {
         return container == null || container.test(stack);
     }
