@@ -54,7 +54,7 @@ public class JeiPlugin implements IModPlugin {
     @Override
     public void registerRecipeTransferHandlers(IRecipeTransferRegistration registration) {
         registration.addRecipeTransferHandler(AirCompressorMenu.class, AIR_COMPRESSOR,
-                36, 6, 0, 36);
+                36, 5, 0, 36);
     }
 
     public static final ResourceLocation UID = new ResourceLocation(Kitchenkarrot.MOD_ID, "jei_plugin");
