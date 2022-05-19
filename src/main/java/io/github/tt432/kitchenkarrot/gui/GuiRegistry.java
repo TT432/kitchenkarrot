@@ -1,6 +1,6 @@
-package io.github.tt432.kitchenkarrot.blockentity.gui;
+package io.github.tt432.kitchenkarrot.gui;
 
-import io.github.tt432.kitchenkarrot.blockentity.menu.ModMenuTypes;
+import io.github.tt432.kitchenkarrot.menu.ModMenuTypes;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.eventbus.api.SubscribeEvent;

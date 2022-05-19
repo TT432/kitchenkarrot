@@ -1,6 +1,6 @@
 package io.github.tt432.kitchenkarrot.blockentity;
 
-import io.github.tt432.kitchenkarrot.blockentity.menu.AirCompressorMenu;
+import io.github.tt432.kitchenkarrot.menu.AirCompressorMenu;
 import io.github.tt432.kitchenkarrot.blockentity.sync.IntSyncData;
 import io.github.tt432.kitchenkarrot.blockentity.sync.StringSyncData;
 import io.github.tt432.kitchenkarrot.blockentity.sync.SyncData;

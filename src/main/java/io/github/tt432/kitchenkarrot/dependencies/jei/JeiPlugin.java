@@ -1,8 +1,8 @@
 package io.github.tt432.kitchenkarrot.dependencies.jei;
 
 import io.github.tt432.kitchenkarrot.Kitchenkarrot;
-import io.github.tt432.kitchenkarrot.blockentity.gui.AirCompressorGui;
-import io.github.tt432.kitchenkarrot.blockentity.menu.AirCompressorMenu;
+import io.github.tt432.kitchenkarrot.gui.AirCompressorGui;
+import io.github.tt432.kitchenkarrot.menu.AirCompressorMenu;
 import io.github.tt432.kitchenkarrot.dependencies.jei.category.AirCompressorRecipeCategory;
 import io.github.tt432.kitchenkarrot.item.ModItems;
 import io.github.tt432.kitchenkarrot.recipes.recipe.AirCompressorRecipe;

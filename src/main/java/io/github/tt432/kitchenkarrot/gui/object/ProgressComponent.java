@@ -1,4 +1,4 @@
-package io.github.tt432.kitchenkarrot.blockentity.gui.object;
+package io.github.tt432.kitchenkarrot.gui.object;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;

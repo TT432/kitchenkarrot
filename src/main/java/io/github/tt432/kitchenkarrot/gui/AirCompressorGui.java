@@ -1,11 +1,11 @@
-package io.github.tt432.kitchenkarrot.blockentity.gui;
+package io.github.tt432.kitchenkarrot.gui;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import io.github.tt432.kitchenkarrot.Kitchenkarrot;
 import io.github.tt432.kitchenkarrot.blockentity.AirCompressorBlockEntity;
-import io.github.tt432.kitchenkarrot.blockentity.gui.object.KKGui;
-import io.github.tt432.kitchenkarrot.blockentity.gui.object.ProgressComponent;
-import io.github.tt432.kitchenkarrot.blockentity.menu.AirCompressorMenu;
+import io.github.tt432.kitchenkarrot.gui.object.KKGui;
+import io.github.tt432.kitchenkarrot.gui.object.ProgressComponent;
+import io.github.tt432.kitchenkarrot.menu.AirCompressorMenu;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;

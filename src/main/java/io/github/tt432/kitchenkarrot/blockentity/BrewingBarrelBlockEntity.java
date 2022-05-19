@@ -1,6 +1,6 @@
 package io.github.tt432.kitchenkarrot.blockentity;
 
-import io.github.tt432.kitchenkarrot.blockentity.menu.BrewingBarrelMenu;
+import io.github.tt432.kitchenkarrot.menu.BrewingBarrelMenu;
 import io.github.tt432.kitchenkarrot.blockentity.sync.FluidSyncData;
 import io.github.tt432.kitchenkarrot.blockentity.sync.SyncData;
 import net.minecraft.core.BlockPos;
