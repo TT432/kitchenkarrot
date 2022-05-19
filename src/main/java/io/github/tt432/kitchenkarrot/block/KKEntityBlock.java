@@ -7,7 +7,6 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -50,8 +49,9 @@ public abstract class KKEntityBlock<T extends KKBlockEntity> extends BaseEntityB
         } else {
             var be = pLevel.getBlockEntity(pPos);
 
-            if (be instanceof MenuProvider mp) {
-                NetworkHooks.openGui((ServerPlayer) pPlayer, mp, be.getBlockPos());
+            if (be instanceof KKBlockEntity kk) {
+                NetworkHooks.openGui((ServerPlayer) pPlayer, kk, be.getBlockPos());
+                kk.forceOnce();
             }
             return InteractionResult.CONSUME;
         }

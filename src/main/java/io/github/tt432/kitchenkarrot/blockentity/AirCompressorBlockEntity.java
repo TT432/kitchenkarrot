@@ -80,7 +80,7 @@ public class AirCompressorBlockEntity extends KKBlockEntity {
     }
 
     public AirCompressorRecipe getRecipe() {
-        return recipe == null && !this.recipeId.get().isEmpty() ?
+        return recipe == null && !this.recipeId.isEmpty() ?
                 recipe = (AirCompressorRecipe) level.getRecipeManager()
                         .byKey(new ResourceLocation(recipeId.get())).get() : recipe;
     }

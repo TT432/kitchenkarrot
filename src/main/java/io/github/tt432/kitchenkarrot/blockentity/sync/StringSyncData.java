@@ -12,6 +12,10 @@ public class StringSyncData extends SyncData<String> {
         super(name, defaultValue, needSave);
     }
 
+    public boolean isEmpty() {
+        return get() == null || get().isEmpty();
+    }
+
     @Override
     protected CompoundTag toTag() {
         var result = new CompoundTag();

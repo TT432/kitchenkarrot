@@ -1,4 +1,4 @@
-package io.github.tt432.kitchenkarrot.gui.object;
+package io.github.tt432.kitchenkarrot.gui;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -19,17 +19,8 @@ public abstract class KKGui<T extends AbstractContainerMenu> extends AbstractCon
         this.GUI = gui;
     }
 
-    protected int relX;
-    protected int relY;
-
-    private void updateRelPos() {
-        relX = (this.width - this.imageWidth) / 2;
-        relY = (this.height - this.imageHeight) / 2;
-    }
-
     @Override
     public void render(PoseStack pPoseStack, int pMouseX, int pMouseY, float pPartialTick) {
-        updateRelPos();
         this.renderBackground(pPoseStack);
         super.render(pPoseStack, pMouseX, pMouseY, pPartialTick);
     }
@@ -37,6 +28,6 @@ public abstract class KKGui<T extends AbstractContainerMenu> extends AbstractCon
     @Override
     protected void renderBg(PoseStack matrixStack, float partialTicks, int mouseX, int mouseY) {
         RenderSystem.setShaderTexture(0, GUI);
-        this.blit(matrixStack, relX, relY, 0, 0, this.imageWidth, this.imageHeight);
+        this.blit(matrixStack, leftPos, topPos, 0, 0, this.imageWidth, this.imageHeight);
     }
 }

@@ -65,16 +65,27 @@ public abstract class KKBlockEntity extends BlockEntity implements MenuProvider 
         super.saveAdditional(pTag);
         syncDataList.forEach(data -> {
             if (data.needSave) {
-                data.save(pTag);
+                data.save(pTag, true);
             }
         });
+    }
+
+    boolean forceOnce;
+
+    public void forceOnce() {
+        forceOnce = true;
     }
 
     @Override
     public CompoundTag getUpdateTag() {
         CompoundTag result = new CompoundTag();
         result.putBoolean(SYNC_KEY, true);
-        syncDataList.forEach(data -> data.save(result));
+        syncDataList.forEach(data -> data.save(result, forceOnce));
+
+        if (forceOnce) {
+            forceOnce = false;
+        }
+
         return result;
     }
 

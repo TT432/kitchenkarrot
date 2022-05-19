@@ -29,8 +29,8 @@ public abstract class SyncData<V> {
         onChanged();
     }
 
-    public void save(CompoundTag tag) {
-        if (changed) {
+    public void save(CompoundTag tag, boolean force) {
+        if (changed || force) {
             tag.put(name, toTag());
             changed = false;
         }
