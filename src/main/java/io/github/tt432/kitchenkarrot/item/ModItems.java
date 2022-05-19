@@ -142,7 +142,9 @@ public class ModItems {
                     new FoodProperties.Builder().alwaysEat().build()
             )));
 
-    public static final RegistryObject<Item> SHAKER = cocktail("shaker");
+    public static final RegistryObject<Item> SHAKER = ITEMS.register("shaker",
+            () -> new ShakerItem(defaultProperties()));
+
     public static final RegistryObject<Item> RUM_BASE = cocktail("rum_base");
     public static final RegistryObject<Item> VODKA_BASE = cocktail("vodka_base");
     public static final RegistryObject<Item> ACORN_WINE_BASE = cocktail("acorn_wine_base");
