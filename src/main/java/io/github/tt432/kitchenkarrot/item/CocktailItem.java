@@ -9,10 +9,13 @@ import net.minecraft.core.NonNullList;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -36,19 +39,41 @@ public class CocktailItem extends Item {
         }
     }
 
+    public static final ResourceLocation UNKNOWN_COCKTAIL =
+            new ResourceLocation(Kitchenkarrot.MOD_ID, "unknown");
+
+    public static ItemStack unknownCocktail() {
+        var stack = new ItemStack(ModItems.COCKTAIL.get());
+        setCocktail(stack, UNKNOWN_COCKTAIL);
+        return stack;
+    }
+
     @Override
     public ItemStack finishUsingItem(ItemStack pStack, Level pLevel, LivingEntity pLivingEntity) {
-        var recipe = get(pLevel, getCocktail(pStack));
+        if (pLivingEntity instanceof ServerPlayer player) {
+            var cocktail = getCocktail(pStack);
 
-        if (recipe != null && pLivingEntity instanceof Player player) {
-            player.getFoodData().eat(recipe.content.hunger, recipe.content.saturation);
+            if (cocktail != null) {
+                var recipe = get(pLevel, cocktail);
 
-            if (!player.getAbilities().instabuild) {
-                pStack.shrink(1);
-            }
+                if (recipe != null) {
+                    player.getFoodData().eat(recipe.content.hunger, recipe.content.saturation);
 
-            for (EffectStack effectStack : recipe.content.effect) {
-                player.addEffect(effectStack.get());
+                    if (!player.getAbilities().instabuild) {
+                        pStack.shrink(1);
+                    }
+
+                    for (EffectStack effectStack : recipe.content.effect) {
+                        player.addEffect(effectStack.get());
+                    }
+                } else if (cocktail.equals(UNKNOWN_COCKTAIL)) {
+                    var array = ForgeRegistries.MOB_EFFECTS.getValues().toArray(new MobEffect[0]);
+                    player.addEffect(new MobEffectInstance(array[pLevel.random.nextInt(array.length)], 20 * 5, 0));
+
+                    if (!player.getAbilities().instabuild) {
+                        pStack.shrink(1);
+                    }
+                }
             }
         }
 

@@ -18,7 +18,7 @@ apply plugin: 'org.spongepowered.mixin'
 apply plugin: 'org.parchmentmc.librarian.forgegradle'
 
 group = 'io.github.tt432'
-version = '1.18.2-1-6'
+version = '1.18.2-1-8'
 
 java {
     archivesBaseName = 'kitchenkarrot'

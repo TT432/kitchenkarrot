@@ -1,5 +1,6 @@
 package io.github.tt432.kitchenkarrot.menu;
 
+import io.github.tt432.kitchenkarrot.item.CocktailItem;
 import io.github.tt432.kitchenkarrot.item.ShakerItem;
 import io.github.tt432.kitchenkarrot.menu.base.KKMenu;
 import io.github.tt432.kitchenkarrot.menu.reg.ModMenuTypes;
@@ -33,18 +34,24 @@ public class ShakerMenu extends KKMenu {
             itemStack.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(handler -> {
                 var list = getInputs(handler);
 
-                RecipeManager.getCocktailRecipes(inventory.player.level).stream()
-                    .filter(r -> r.matches(list)).findFirst().ifPresent(cocktailRecipe -> {
-                        var result = handler.insertItem(11, cocktailRecipe.getResultItem(), false);
+                var recipe = RecipeManager.getCocktailRecipes(inventory.player.level).stream()
+                    .filter(r -> r.matches(list)).findFirst();
 
-                        if (!result.isEmpty()) {
-                            inventory.player.drop(result, true);
-                        }
+                var recipeResult = CocktailItem.unknownCocktail();
 
-                        for (int i = 0; i < 5; i++) {
-                            handler.extractItem(i, 1, false);
-                        }
-                    });
+                if (recipe.isPresent()) {
+                    recipeResult = recipe.get().getResultItem();
+                }
+
+                var result = handler.insertItem(11, recipeResult, false);
+
+                if (!result.isEmpty()) {
+                    inventory.player.drop(result, true);
+                }
+
+                for (int i = 0; i < 5; i++) {
+                    handler.extractItem(i, 1, false);
+                }
             });
 
             ShakerItem.setFinish(itemStack, false);
