@@ -143,7 +143,7 @@ public class ModItems {
             )));
 
     public static final RegistryObject<Item> SHAKER = ITEMS.register("shaker",
-            () -> new ShakerItem(defaultProperties()));
+            () -> new ShakerItem(defaultProperties().tab(Kitchenkarrot.COCKTAIL_TAB).stacksTo(1)));
 
     public static final RegistryObject<Item> RUM_BASE = cocktail("rum_base");
     public static final RegistryObject<Item> VODKA_BASE = cocktail("vodka_base");

@@ -72,13 +72,13 @@ public class CocktailItem extends Item {
     }
 
     @Override
-    public void appendHoverText(ItemStack p_41421_, @org.jetbrains.annotations.Nullable Level p_41422_, List<Component> p_41423_, TooltipFlag p_41424_) {
-        ResourceLocation name = getCocktail(p_41421_);
+    public void appendHoverText(ItemStack stack, @org.jetbrains.annotations.Nullable Level level, List<Component> p_41423_, TooltipFlag p_41424_) {
+        ResourceLocation name = getCocktail(stack);
 
         if (name != null) {
             p_41423_.add(new TranslatableComponent(name.toString().replace(":", ".") + ".tooltip"));
 
-            var recipe = get(p_41422_, getCocktail(p_41421_));
+            var recipe = get(level, getCocktail(stack));
 
             if (recipe != null) {
                 p_41423_.add(new TranslatableComponent("item.cocktail.author", recipe.author));
@@ -101,10 +101,10 @@ public class CocktailItem extends Item {
 
     @Nullable
     public static CocktailRecipe get(Level level, ResourceLocation resourceLocation) {
-        var a = level.getRecipeManager().byKey(resourceLocation);
+        var result = level.getRecipeManager().byKey(resourceLocation);
 
-        if (a.isPresent() && a.get().getType() == RecipeTypes.COCKTAIL.get()) {
-            return (CocktailRecipe) a.get();
+        if (result.isPresent() && result.get().getType() == RecipeTypes.COCKTAIL.get()) {
+            return (CocktailRecipe) result.get();
         }
 
         return null;

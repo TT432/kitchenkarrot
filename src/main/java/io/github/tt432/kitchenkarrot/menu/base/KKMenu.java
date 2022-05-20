@@ -6,6 +6,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.DataSlot;
 import net.minecraft.world.inventory.MenuType;
+import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
@@ -18,8 +19,8 @@ import java.util.function.Supplier;
  * @author DustW
  **/
 public abstract class KKMenu extends AbstractContainerMenu {
-    Inventory inventory;
-    IItemHandler invHandler;
+    protected Inventory inventory;
+    protected IItemHandler invHandler;
 
     public KKMenu(MenuType<?> type, int pContainerId, Inventory inventory) {
         super(type, pContainerId);
@@ -90,12 +91,12 @@ public abstract class KKMenu extends AbstractContainerMenu {
         return ItemStack.EMPTY;
     }
 
-    protected void addSlot(IItemHandler handler, int index, int x, int y) {
-        addSlot(new SlotItemHandler(handler, index, x, y));
+    protected Slot addSlot(IItemHandler handler, int index, int x, int y) {
+        return addSlot(new SlotItemHandler(handler, index, x, y));
     }
 
-    protected void addResultSlot(IItemHandler handler, int index, int x, int y) {
-        addSlot(new KKResultSlot(handler, index, x, y));
+    protected Slot addResultSlot(IItemHandler handler, int index, int x, int y) {
+        return addSlot(new KKResultSlot(handler, index, x, y));
     }
 
     protected int addSlotRange(IItemHandler handler, int index, int x, int y, int amount, int dx) {

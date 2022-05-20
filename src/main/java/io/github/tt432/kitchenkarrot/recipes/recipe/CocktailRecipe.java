@@ -2,6 +2,8 @@ package io.github.tt432.kitchenkarrot.recipes.recipe;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import io.github.tt432.kitchenkarrot.item.CocktailItem;
+import io.github.tt432.kitchenkarrot.item.ModItems;
 import io.github.tt432.kitchenkarrot.recipes.base.BaseRecipe;
 import io.github.tt432.kitchenkarrot.recipes.object.EffectStack;
 import io.github.tt432.kitchenkarrot.recipes.register.RecipeSerializers;
@@ -10,6 +12,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraftforge.common.util.RecipeMatcher;
 
 import java.util.List;
 
@@ -19,12 +22,18 @@ import java.util.List;
 public class CocktailRecipe extends BaseRecipe<CocktailRecipe> {
     @Override
     public boolean matches(List<ItemStack> inputs) {
-        return false;
+        return RecipeMatcher.findMatches(inputs, content.recipe) != null;
     }
+
+    ItemStack result;
 
     @Override
     public ItemStack getResultItem() {
-        return null;
+        if (result == null) {
+            result = new ItemStack(ModItems.COCKTAIL.get());
+            CocktailItem.setCocktail(result, getId());
+        }
+        return result.copy();
     }
 
     @Override
@@ -54,5 +63,17 @@ public class CocktailRecipe extends BaseRecipe<CocktailRecipe> {
         public int saturation;
         @Expose
         public List<EffectStack> effect;
+
+        public int getCraftingTime() {
+            return craftingTime;
+        }
+
+        public List<Ingredient> getRecipe() {
+            return recipe;
+        }
+    }
+
+    public Content getContent() {
+        return content;
     }
 }
