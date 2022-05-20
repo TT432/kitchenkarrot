@@ -60,7 +60,7 @@ public class ShakerMenu extends KKMenu {
                     handler.extractItem(i, 1, false);
                 }
 
-                inputChanged(handler);
+                slotChanged(handler);
             });
 
             ShakerItem.setFinish(itemStack, false);
@@ -77,7 +77,12 @@ public class ShakerMenu extends KKMenu {
         return list;
     }
 
-    void inputChanged(IItemHandler handler) {
+    void slotChanged(IItemHandler handler) {
+        if (!handler.getStackInSlot(11).isEmpty()) {
+            ShakerItem.setRecipeTime(itemStack, 0);
+            return;
+        }
+
         var list = getInputs(handler);
 
         var recipe = RecipeManager.getCocktailRecipes(inventory.player.level)
@@ -101,7 +106,7 @@ public class ShakerMenu extends KKMenu {
             @Override
             public void setChanged() {
                 super.setChanged();
-                inputChanged(handler);
+                slotChanged(handler);
             }
         });
     }
@@ -118,6 +123,8 @@ public class ShakerMenu extends KKMenu {
                     player.playSound(ModSoundEvents.SHAKER_COCKTAIL.get(), 0.5F,
                             player.getRandom().nextFloat() * 0.1F + 0.9F);
                 }
+
+                slotChanged(handler);
             }
         });
     }

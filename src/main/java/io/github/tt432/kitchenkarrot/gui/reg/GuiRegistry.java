@@ -1,6 +1,7 @@
 package io.github.tt432.kitchenkarrot.gui.reg;
 
 import io.github.tt432.kitchenkarrot.gui.AirCompressorGui;
+import io.github.tt432.kitchenkarrot.gui.BrewingBarrelGui;
 import io.github.tt432.kitchenkarrot.gui.ShakerGui;
 import io.github.tt432.kitchenkarrot.menu.reg.ModMenuTypes;
 import net.minecraft.client.gui.screens.MenuScreens;
@@ -19,6 +20,7 @@ public class GuiRegistry {
         event.enqueueWork(() -> {
             MenuScreens.register(ModMenuTypes.AIR_COMPRESSOR.get(), AirCompressorGui::new);
             MenuScreens.register(ModMenuTypes.SHAKER.get(), ShakerGui::new);
+            MenuScreens.register(ModMenuTypes.BREWING_BARREL.get(), BrewingBarrelGui::new);
         });
     }
 }
