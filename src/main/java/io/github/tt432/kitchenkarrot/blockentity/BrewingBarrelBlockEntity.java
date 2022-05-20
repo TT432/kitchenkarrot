@@ -3,6 +3,7 @@ package io.github.tt432.kitchenkarrot.blockentity;
 import io.github.tt432.kitchenkarrot.menu.BrewingBarrelMenu;
 import io.github.tt432.kitchenkarrot.blockentity.sync.FluidSyncData;
 import io.github.tt432.kitchenkarrot.blockentity.sync.SyncData;
+import io.github.tt432.kitchenkarrot.util.ItemHandlerUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.player.Inventory;
@@ -47,7 +48,7 @@ public class BrewingBarrelBlockEntity extends KKBlockEntity {
 
     @Override
     public List<ItemStack> drops() {
-        return dropAll(input2, result);
+        return ItemHandlerUtils.toList(input2, result);
     }
 
     @Nullable

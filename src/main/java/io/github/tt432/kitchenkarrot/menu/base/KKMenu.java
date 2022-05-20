@@ -1,5 +1,6 @@
-package io.github.tt432.kitchenkarrot.menu;
+package io.github.tt432.kitchenkarrot.menu.base;
 
+import io.github.tt432.kitchenkarrot.menu.slot.KKResultSlot;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;

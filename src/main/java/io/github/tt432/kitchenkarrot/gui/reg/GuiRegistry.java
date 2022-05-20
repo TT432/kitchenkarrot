@@ -1,6 +1,8 @@
-package io.github.tt432.kitchenkarrot.gui;
+package io.github.tt432.kitchenkarrot.gui.reg;
 
-import io.github.tt432.kitchenkarrot.menu.ModMenuTypes;
+import io.github.tt432.kitchenkarrot.gui.AirCompressorGui;
+import io.github.tt432.kitchenkarrot.gui.ShakerGui;
+import io.github.tt432.kitchenkarrot.menu.reg.ModMenuTypes;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -16,7 +18,7 @@ public class GuiRegistry {
     public static void init(FMLClientSetupEvent event) {
         event.enqueueWork(() -> {
             MenuScreens.register(ModMenuTypes.AIR_COMPRESSOR.get(), AirCompressorGui::new);
-            // ItemBlockRenderTypes.setRenderLayer(Registration.POWERGEN.get(), RenderType.translucent());
+            MenuScreens.register(ModMenuTypes.SHAKER.get(), ShakerGui::new);
         });
     }
 }

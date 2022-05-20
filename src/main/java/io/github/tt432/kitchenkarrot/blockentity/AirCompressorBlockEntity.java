@@ -7,6 +7,7 @@ import io.github.tt432.kitchenkarrot.blockentity.sync.SyncData;
 import io.github.tt432.kitchenkarrot.recipes.recipe.AirCompressorRecipe;
 import io.github.tt432.kitchenkarrot.recipes.register.RecipeManager;
 import io.github.tt432.kitchenkarrot.tag.ModItemTags;
+import io.github.tt432.kitchenkarrot.util.ItemHandlerUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -165,7 +166,10 @@ public class AirCompressorBlockEntity extends KKBlockEntity {
 
     protected void addFuel() {
         burnTime.set(ForgeHooks.getBurnTime(input2.getStackInSlot(0), null));
-        input2.extractItem(0, 1, false);
+        var fuel = input2.extractItem(0, 1, false);
+        if (!fuel.getContainerItem().isEmpty()) {
+            input2.insertItem(0, fuel.getContainerItem(), false);
+        }
         maxBurnTime.set(burnTime.get());
 
         setChanged();
@@ -181,7 +185,7 @@ public class AirCompressorBlockEntity extends KKBlockEntity {
 
     @Override
     public List<ItemStack> drops() {
-        return dropAll(input1, input2, output);
+        return ItemHandlerUtils.toList(input1, input2, output);
     }
 
     @NotNull

@@ -14,7 +14,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.items.IItemHandler;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -90,18 +89,6 @@ public abstract class KKBlockEntity extends BlockEntity implements MenuProvider 
     }
 
     public abstract List<ItemStack> drops();
-
-    protected List<ItemStack> dropAll(IItemHandler... itemHandlers) {
-        List<ItemStack> result = new ArrayList<>();
-
-        for (IItemHandler itemHandler : itemHandlers) {
-            for (int i = 0; i < itemHandler.getSlots(); i++) {
-                result.add(itemHandler.getStackInSlot(i));
-            }
-        }
-
-        return result;
-    }
 
     @Override
     public Component getDisplayName() {

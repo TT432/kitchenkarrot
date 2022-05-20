@@ -1,4 +1,4 @@
-package io.github.tt432.kitchenkarrot.gui;
+package io.github.tt432.kitchenkarrot.gui.base;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -23,6 +23,7 @@ public abstract class KKGui<T extends AbstractContainerMenu> extends AbstractCon
     public void render(PoseStack pPoseStack, int pMouseX, int pMouseY, float pPartialTick) {
         this.renderBackground(pPoseStack);
         super.render(pPoseStack, pMouseX, pMouseY, pPartialTick);
+        this.renderTooltip(pPoseStack, pMouseX, pMouseY);
     }
 
     @Override

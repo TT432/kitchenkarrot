@@ -1,4 +1,4 @@
-package io.github.tt432.kitchenkarrot.menu;
+package io.github.tt432.kitchenkarrot.menu.slot;
 
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.items.IItemHandler;

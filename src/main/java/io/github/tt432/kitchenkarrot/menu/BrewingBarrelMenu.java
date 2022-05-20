@@ -1,6 +1,8 @@
 package io.github.tt432.kitchenkarrot.menu;
 
 import io.github.tt432.kitchenkarrot.blockentity.BrewingBarrelBlockEntity;
+import io.github.tt432.kitchenkarrot.menu.base.KKBeMenu;
+import io.github.tt432.kitchenkarrot.menu.reg.ModMenuTypes;
 import net.minecraft.world.entity.player.Inventory;
 
 /**

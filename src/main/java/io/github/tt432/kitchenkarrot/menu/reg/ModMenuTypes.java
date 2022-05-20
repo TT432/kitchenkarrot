@@ -1,6 +1,9 @@
-package io.github.tt432.kitchenkarrot.menu;
+package io.github.tt432.kitchenkarrot.menu.reg;
 
 import io.github.tt432.kitchenkarrot.Kitchenkarrot;
+import io.github.tt432.kitchenkarrot.menu.AirCompressorMenu;
+import io.github.tt432.kitchenkarrot.menu.BrewingBarrelMenu;
+import io.github.tt432.kitchenkarrot.menu.ShakerMenu;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
@@ -22,6 +25,9 @@ public class ModMenuTypes {
 
     public static final RegistryObject<MenuType<BrewingBarrelMenu>> BREWING_BARREL =
             MENUS.register("brewing_barrel", () -> from(BrewingBarrelMenu::new));
+
+    public static final RegistryObject<MenuType<ShakerMenu>> SHAKER =
+            MENUS.register("shaker", () -> new MenuType<>(ShakerMenu::new));
 
     private interface KKBeMenuCreator<M extends AbstractContainerMenu, T extends BlockEntity> {
         M create(int windowId, Inventory inv, T blockEntity);

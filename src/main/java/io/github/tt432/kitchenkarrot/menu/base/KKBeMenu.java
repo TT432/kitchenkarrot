@@ -1,4 +1,4 @@
-package io.github.tt432.kitchenkarrot.menu;
+package io.github.tt432.kitchenkarrot.menu.base;
 
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.MenuType;

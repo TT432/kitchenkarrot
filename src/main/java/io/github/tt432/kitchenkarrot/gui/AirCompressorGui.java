@@ -3,6 +3,7 @@ package io.github.tt432.kitchenkarrot.gui;
 import com.mojang.blaze3d.vertex.PoseStack;
 import io.github.tt432.kitchenkarrot.Kitchenkarrot;
 import io.github.tt432.kitchenkarrot.blockentity.AirCompressorBlockEntity;
+import io.github.tt432.kitchenkarrot.gui.base.KKGui;
 import io.github.tt432.kitchenkarrot.gui.widget.ProgressWidget;
 import io.github.tt432.kitchenkarrot.menu.AirCompressorMenu;
 import net.minecraft.network.chat.Component;
@@ -39,6 +40,5 @@ public class AirCompressorGui extends KKGui<AirCompressorMenu> {
     @Override
     public void render(PoseStack matrixStack, int mouseX, int mouseY, float partialTicks) {
         super.render(matrixStack, mouseX, mouseY, partialTicks);
-        this.renderTooltip(matrixStack, mouseX, mouseY);
     }
 }

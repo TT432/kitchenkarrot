@@ -1,10 +1,23 @@
 package io.github.tt432.kitchenkarrot.item;
 
-import io.github.tt432.kitchenkarrot.Kitchenkarrot;
-import net.minecraft.core.NonNullList;
-import net.minecraft.world.item.CreativeModeTab;
+import io.github.tt432.kitchenkarrot.capability.ShakerCapabilityProvider;
+import io.github.tt432.kitchenkarrot.menu.ShakerMenu;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.SimpleMenuProvider;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraftforge.common.capabilities.ICapabilityProvider;
+import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.ItemStackHandler;
+import net.minecraftforge.network.NetworkHooks;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.Objects;
 
 /**
  * @author DustW
@@ -15,12 +28,41 @@ public class ShakerItem extends Item {
     }
 
     @Override
-    public void fillItemCategory(CreativeModeTab pCategory, NonNullList<ItemStack> pItems) {
-        if (pCategory == Kitchenkarrot.COCKTAIL_TAB) {
-            pItems.add(new ItemStack(this));
-            var alwaysSharking = new ItemStack(this);
-            alwaysSharking.getOrCreateTag().putBoolean("sharking", true);
-            pItems.add(alwaysSharking);
+    public InteractionResultHolder<ItemStack> use(Level pLevel, Player pPlayer, InteractionHand pUsedHand) {
+        var stack = pPlayer.getItemInHand(pUsedHand);
+
+        if (!pLevel.isClientSide && pUsedHand == InteractionHand.MAIN_HAND) {
+            NetworkHooks.openGui((ServerPlayer) pPlayer, new SimpleMenuProvider(
+                    (id, inv, player) -> new ShakerMenu(id, inv), stack.getDisplayName()));
+
+            return InteractionResultHolder.success(stack);
+        }
+
+        return InteractionResultHolder.fail(stack);
+    }
+
+    @Nullable
+    @Override
+    public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable CompoundTag nbt) {
+        return new ShakerCapabilityProvider();
+    }
+
+    @Nullable
+    @Override
+    public CompoundTag getShareTag(ItemStack stack) {
+        var result = Objects.requireNonNullElse(super.getShareTag(stack), new CompoundTag());
+        stack.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)
+                .ifPresent(h -> result.put("items", ((ItemStackHandler) h).serializeNBT()));
+        return result;
+    }
+
+    @Override
+    public void readShareTag(ItemStack stack, @Nullable CompoundTag nbt) {
+        super.readShareTag(stack, nbt);
+
+        if (nbt != null) {
+            stack.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)
+                    .ifPresent(h -> ((ItemStackHandler) h).deserializeNBT(nbt.getCompound("items")));
         }
     }
 }
