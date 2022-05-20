@@ -2,9 +2,10 @@ package io.github.tt432.kitchenkarrot.item;
 
 import io.github.tt432.kitchenkarrot.capability.ShakerCapabilityProvider;
 import io.github.tt432.kitchenkarrot.menu.ShakerMenu;
-import io.github.tt432.kitchenkarrot.recipes.recipe.CocktailRecipe;
+import io.github.tt432.kitchenkarrot.sound.ModSoundEvents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.SimpleMenuProvider;
@@ -34,14 +35,20 @@ public class ShakerItem extends Item {
     public InteractionResultHolder<ItemStack> use(Level pLevel, Player pPlayer, InteractionHand pUsedHand) {
         var stack = pPlayer.getItemInHand(pUsedHand);
 
-        if (!pLevel.isClientSide && pUsedHand == InteractionHand.MAIN_HAND) {
+        if (pUsedHand == InteractionHand.MAIN_HAND) {
             if (pPlayer.isShiftKeyDown()) {
-                NetworkHooks.openGui((ServerPlayer) pPlayer, new SimpleMenuProvider(
-                        (id, inv, player) -> new ShakerMenu(id, inv), stack.getDisplayName()));
+                if (!pLevel.isClientSide) {
+                    NetworkHooks.openGui((ServerPlayer) pPlayer, new SimpleMenuProvider(
+                            (id, inv, player) -> new ShakerMenu(id, inv), stack.getDisplayName()));
+                }
+                else {
+                    pPlayer.playSound(ModSoundEvents.SHAKER_OPEN.get(), 0.5F,
+                            pLevel.random.nextFloat() * 0.1F + 0.9F);
+                }
 
-                return InteractionResultHolder.success(stack);
+                return InteractionResultHolder.sidedSuccess(stack, pLevel.isClientSide);
             }
-            else if (!getFinish(stack)) {
+            else if (!pLevel.isClientSide && !getFinish(stack)) {
                 pPlayer.startUsingItem(pUsedHand);
 
                 return InteractionResultHolder.success(stack);
@@ -49,6 +56,11 @@ public class ShakerItem extends Item {
         }
 
         return InteractionResultHolder.fail(stack);
+    }
+
+    @Override
+    public SoundEvent getDrinkingSound() {
+        return super.getDrinkingSound();
     }
 
     @Override
@@ -70,18 +82,13 @@ public class ShakerItem extends Item {
         return stack.getOrCreateTag().getBoolean("finish");
     }
 
-    public static void setRecipeTime(ItemStack stack, @Nullable CocktailRecipe recipe) {
-        if (recipe != null) {
-            stack.getOrCreateTag().putInt("time", recipe.getContent().getCraftingTime());
-        }
-        else {
-            stack.getOrCreateTag().putInt("time", 60);
-        }
+    public static void setRecipeTime(ItemStack stack, int time) {
+        stack.getOrCreateTag().putInt("time", time);
     }
 
     public static int getRecipeTime(ItemStack stack) {
         var tag = stack.getOrCreateTag();
-        return tag.contains("time") ? tag.getInt("time") : 60;
+        return tag.contains("time") ? tag.getInt("time") : 0;
     }
 
     @Override

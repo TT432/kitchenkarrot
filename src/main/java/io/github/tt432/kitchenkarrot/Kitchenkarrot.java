@@ -5,6 +5,7 @@ import io.github.tt432.kitchenkarrot.blockentity.ModBlockEntities;
 import io.github.tt432.kitchenkarrot.menu.reg.ModMenuTypes;
 import io.github.tt432.kitchenkarrot.item.ModItems;
 import io.github.tt432.kitchenkarrot.recipes.register.RecipeManager;
+import io.github.tt432.kitchenkarrot.sound.ModSoundEvents;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.fml.common.Mod;
@@ -37,6 +38,7 @@ public class Kitchenkarrot {
         ModItems.ITEMS.register(bus);
         ModMenuTypes.MENUS.register(bus);
         ModBlockEntities.BLOCK_ENTITIES.register(bus);
+        ModSoundEvents.SOUNDS.register(bus);
         RecipeManager.register(bus);
     }
 }

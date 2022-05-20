@@ -4,8 +4,11 @@ import io.github.tt432.kitchenkarrot.item.CocktailItem;
 import io.github.tt432.kitchenkarrot.item.ShakerItem;
 import io.github.tt432.kitchenkarrot.menu.base.KKMenu;
 import io.github.tt432.kitchenkarrot.menu.reg.ModMenuTypes;
+import io.github.tt432.kitchenkarrot.menu.slot.KKResultSlot;
 import io.github.tt432.kitchenkarrot.recipes.register.RecipeManager;
+import io.github.tt432.kitchenkarrot.sound.ModSoundEvents;
 import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.items.CapabilityItemHandler;
@@ -43,6 +46,10 @@ public class ShakerMenu extends KKMenu {
                     recipeResult = recipe.get().getResultItem();
                 }
 
+                if (list.stream().anyMatch(ItemStack::isEmpty)) {
+                    return;
+                }
+
                 var result = handler.insertItem(11, recipeResult, false);
 
                 if (!result.isEmpty()) {
@@ -52,6 +59,8 @@ public class ShakerMenu extends KKMenu {
                 for (int i = 0; i < 5; i++) {
                     handler.extractItem(i, 1, false);
                 }
+
+                inputChanged(handler);
             });
 
             ShakerItem.setFinish(itemStack, false);
@@ -68,23 +77,47 @@ public class ShakerMenu extends KKMenu {
         return list;
     }
 
+    void inputChanged(IItemHandler handler) {
+        var list = getInputs(handler);
+
+        var recipe = RecipeManager.getCocktailRecipes(inventory.player.level)
+                .stream().filter(r -> r.matches(list)).findFirst();
+        if (recipe.isPresent()) {
+            ShakerItem.setRecipeTime(itemStack, recipe.get().getContent().getCraftingTime());
+        }
+        else {
+            if (list.stream().anyMatch(ItemStack::isEmpty)) {
+                ShakerItem.setRecipeTime(itemStack, 0);
+            }
+            else {
+                ShakerItem.setRecipeTime(itemStack, 60);
+            }
+        }
+    }
+
     @Override
     protected Slot addSlot(IItemHandler handler, int index, int x, int y) {
         return addSlot(new SlotItemHandler(handler, index, x, y) {
             @Override
             public void setChanged() {
-                itemStack.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(handler -> {
-                    var list = getInputs(handler);
+                super.setChanged();
+                inputChanged(handler);
+            }
+        });
+    }
 
-                    var recipe = RecipeManager.getCocktailRecipes(inventory.player.level)
-                            .stream().filter(r -> r.matches(list)).findFirst();
-                    if (recipe.isPresent()) {
-                        ShakerItem.setRecipeTime(itemStack, recipe.get());
-                    }
-                    else {
-                        ShakerItem.setRecipeTime(itemStack, null);
-                    }
-                });
+    @Override
+    protected Slot addResultSlot(IItemHandler handler, int index, int x, int y) {
+        return addSlot(new KKResultSlot(handler, index, x, y) {
+            @Override
+            public void setChanged() {
+                super.setChanged();
+                var player = inventory.player;
+
+                if (getItem().isEmpty() && player.level.isClientSide) {
+                    player.playSound(ModSoundEvents.SHAKER_COCKTAIL.get(), 0.5F,
+                            player.getRandom().nextFloat() * 0.1F + 0.9F);
+                }
             }
         });
     }
@@ -107,5 +140,15 @@ public class ShakerMenu extends KKMenu {
 
             addResultSlot(h, 11, 71 + 1, 33 + 1);
         });
+    }
+
+    @Override
+    public void removed(Player pPlayer) {
+        super.removed(pPlayer);
+
+        if (pPlayer.level.isClientSide) {
+            pPlayer.playSound(ModSoundEvents.SHAKER_CLOSE.get(), 0.5F,
+                    pPlayer.getRandom().nextFloat() * 0.1F + 0.9F);
+        }
     }
 }
