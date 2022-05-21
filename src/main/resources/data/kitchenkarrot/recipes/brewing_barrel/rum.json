@@ -21,7 +21,7 @@
                 "tag" : "forge:crops/wheat"
             }
         ],
-        "craftingtime":200
+        "craftingtime":6000
     },
     "result":{
         "item":"kitchenkarrot:rum"

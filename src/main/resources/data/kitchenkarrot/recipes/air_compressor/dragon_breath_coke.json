@@ -2,7 +2,7 @@
   "type": "kitchenkarrot:air_compressing",
   "ingredient": [
     {
-      "item": "minecraft:water_bucket"
+      "tag": "forge:water"
     },
     {
       "item": "minecraft:sugar"
