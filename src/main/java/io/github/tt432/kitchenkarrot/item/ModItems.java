@@ -163,6 +163,19 @@ public class ModItems {
                 }
             });
 
+    public static final RegistryObject<Item> soothing_tea = ITEMS.register("soothing_tea",
+            () -> new ClearEffectItem(defaultProperties().food(new FoodProperties.Builder().saturationMod(3.6F).build())) {
+                @Override
+                public UseAnim getUseAnimation(ItemStack pStack) {
+                    return UseAnim.DRINK;
+                }
+
+                @Override
+                public int getUseDuration(ItemStack pStack) {
+                    return 48;
+                }
+            });
+
 
     public static final RegistryObject<Item> COCKTAIL = ITEMS.register("cocktail",
             () -> new CocktailItem(defaultProperties().food(

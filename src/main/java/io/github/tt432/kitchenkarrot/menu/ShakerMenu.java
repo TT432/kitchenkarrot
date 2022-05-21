@@ -14,6 +14,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -107,6 +108,14 @@ public class ShakerMenu extends KKMenu {
     }
 
     @Override
+    public ItemStack quickMoveStack(Player player, int index) {
+        if (index == slots.size() - 1) {
+            sound();
+        }
+        return super.quickMoveStack(player, index);
+    }
+
+    @Override
     protected Slot addSlot(IItemHandler handler, int index, int x, int y) {
         return addSlot(new SlotItemHandler(handler, index, x, y) {
             @Override
@@ -117,19 +126,30 @@ public class ShakerMenu extends KKMenu {
         });
     }
 
+    protected void sound() {
+        var player = inventory.player;
+
+        if (player.level.isClientSide) {
+            player.playSound(ModSoundEvents.SHAKER_COCKTAIL.get(), 0.5F,
+                    player.getRandom().nextFloat() * 0.1F + 0.9F);
+        }
+    }
+
     @Override
     protected Slot addResultSlot(IItemHandler handler, int index, int x, int y) {
         return addSlot(new KKResultSlot(handler, index, x, y) {
             @Override
-            public void setChanged() {
-                super.setChanged();
-                var player = inventory.player;
-
-                if (getItem().isEmpty() && player.level.isClientSide) {
-                    player.playSound(ModSoundEvents.SHAKER_COCKTAIL.get(), 0.5F,
-                            player.getRandom().nextFloat() * 0.1F + 0.9F);
+            public void set(@NotNull ItemStack stack) {
+                if (stack.isEmpty()) {
+                    sound();
                 }
 
+                super.set(stack);
+            }
+
+            @Override
+            public void setChanged() {
+                super.setChanged();
                 slotChanged(handler);
             }
         });
