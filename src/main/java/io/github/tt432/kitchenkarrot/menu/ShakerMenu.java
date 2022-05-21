@@ -28,6 +28,12 @@ public class ShakerMenu extends KKMenu {
         super(ModMenuTypes.SHAKER.get(), pContainerId, inventory);
 
         itemStack = inventory.getSelected();
+
+        if (!(itemStack.getItem() instanceof ShakerItem)) {
+            removed(inventory.player);
+            return;
+        }
+
         addSlots();
         finishRecipe();
     }

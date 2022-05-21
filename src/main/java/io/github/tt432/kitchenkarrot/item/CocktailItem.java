@@ -10,8 +10,8 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
@@ -19,6 +19,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nullable;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author DustW
@@ -63,12 +64,15 @@ public class CocktailItem extends Item {
                         pStack.shrink(1);
                     }
 
-                    for (EffectStack effectStack : recipe.content.effect) {
+                    for (EffectStack effectStack : recipe.content.getEffect()) {
                         player.addEffect(effectStack.get());
                     }
                 } else if (cocktail.equals(UNKNOWN_COCKTAIL)) {
-                    var array = ForgeRegistries.MOB_EFFECTS.getValues().toArray(new MobEffect[0]);
-                    player.addEffect(new MobEffectInstance(array[pLevel.random.nextInt(array.length)], 20 * 5, 0));
+                    var array = ForgeRegistries.MOB_EFFECTS.getValues().stream()
+                            .filter(eff -> "minecraft".equals(eff.getRegistryName().getNamespace()) &&
+                                    eff != MobEffects.HEAL && eff != MobEffects.HARM &&
+                                    eff != MobEffects.BAD_OMEN && eff != MobEffects.HERO_OF_THE_VILLAGE).collect(Collectors.toList());
+                    player.addEffect(new MobEffectInstance(array.get(pLevel.random.nextInt(array.size())), 20 * 5, 0));
 
                     if (!player.getAbilities().instabuild) {
                         pStack.shrink(1);

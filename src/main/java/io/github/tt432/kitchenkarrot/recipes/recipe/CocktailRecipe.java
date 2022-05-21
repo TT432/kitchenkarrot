@@ -14,6 +14,7 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraftforge.common.util.RecipeMatcher;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -62,7 +63,7 @@ public class CocktailRecipe extends BaseRecipe<CocktailRecipe> {
         @Expose
         public int saturation;
         @Expose
-        public List<EffectStack> effect;
+        List<EffectStack> effect;
 
         public int getCraftingTime() {
             return craftingTime;
@@ -70,6 +71,10 @@ public class CocktailRecipe extends BaseRecipe<CocktailRecipe> {
 
         public List<Ingredient> getRecipe() {
             return recipe;
+        }
+
+        public List<EffectStack> getEffect() {
+            return effect == null ? new ArrayList<>() : effect;
         }
     }
 

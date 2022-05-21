@@ -70,10 +70,6 @@ public class ProgressWidget extends TooltipWidget {
         var current = currentGetter.get();
         var max = maxGetter.get();
 
-        if (current <= 0) {
-            return;
-        }
-
         RenderSystem.setShaderTexture(0, texture);
         var p = current * 1. / max;
 
