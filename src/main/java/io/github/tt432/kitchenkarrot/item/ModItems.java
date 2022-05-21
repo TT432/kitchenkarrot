@@ -74,9 +74,8 @@ public class ModItems {
     public static final RegistryObject<Item> CANNED_RABBIT_PUMPKIN = fastFood("canned_rabbit_pumpkin", 8, 12.8F, 1);
     public static final RegistryObject<Item> CANNED_CANDIED_APPLE = fastFood("canned_candied_apple", 6, 14.4F, 1);
 
-    public static final RegistryObject<Item> GRILLED_FISH_AND_CACTUS = ITEMS.register("grilled_fish_and_cactus",
-            () -> new InstantHealthFood(defaultProperties()
-                    .food(new FoodProperties.Builder().nutrition(6).saturationMod(7.2F).build())));
+    public static final RegistryObject<Item> GRILLED_FISH_AND_CACTUS =
+            food("grilled_fish_and_cactus", 8, 0.8F);
 
     public static final RegistryObject<Item> PILLAGER_PIE =
             foodEffect("pillager_pie", 8, 4.8F,
