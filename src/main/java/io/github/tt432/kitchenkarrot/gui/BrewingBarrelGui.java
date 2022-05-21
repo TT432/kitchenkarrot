@@ -16,6 +16,8 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraftforge.fluids.IFluidTank;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 
+import java.util.function.Supplier;
+
 /**
  * @author DustW
  **/
@@ -36,6 +38,8 @@ public class BrewingBarrelGui extends KKGui<BrewingBarrelMenu> {
 
         be.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY).ifPresent(handler -> {
             if (handler instanceof IFluidTank tank) {
+                Supplier<Integer> progress = () -> be.getMaxProgress() - be.getProgress();
+
                 addRenderableWidget(new ProgressWidget(this, TEXTURE, leftPos + 22, topPos + 21,
                         176, 44, 8, 33, true,
                         () -> new TextComponent(tank.getFluidAmount() + " / " + tank.getCapacity()),
@@ -53,12 +57,15 @@ public class BrewingBarrelGui extends KKGui<BrewingBarrelMenu> {
                                 else if (!be.canUseRecipe()) {
                                     return new TranslatableComponent("brewing_barrel.error.error_recipe");
                                 }
+                                else if (!be.resultEmpty()) {
+                                    return new TranslatableComponent("brewing_barrel.error.result_slot_not_empty");
+                                }
                                 else {
                                     return new TranslatableComponent("brewing_barrel.ok");
                                 }
                             }
                         },
-                        true, be::getMaxProgress, be::getProgress));
+                        true, be::getMaxProgress, progress));
             }
         });
 
@@ -71,7 +78,9 @@ public class BrewingBarrelGui extends KKGui<BrewingBarrelMenu> {
 
     @Override
     public void render(PoseStack pPoseStack, int pMouseX, int pMouseY, float pPartialTick) {
-        if (menu.blockEntity.canUseRecipe() && !menu.blockEntity.isStarted()) {
+        var be = menu.blockEntity;
+
+        if (be.resultEmpty() && be.fluidEnough() && be.canUseRecipe() && !be.isStarted()) {
             open(button);
         }
         else {

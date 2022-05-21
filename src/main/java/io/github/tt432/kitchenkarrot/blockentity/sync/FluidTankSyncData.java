@@ -9,14 +9,10 @@ import java.util.function.Predicate;
 /**
  * @author DustW
  **/
-public class FluidTankSyncData extends SyncData<FluidTank> {
+public class FluidTankSyncData extends SyncData<FluidTankSyncData.SyncDataFluidTank> {
     public FluidTankSyncData(String name, int capacity, Predicate<FluidStack> validator, boolean needSave) {
-        super(name, new FluidTank(capacity, validator) {
-            @Override
-            protected void onContentsChanged() {
-                super.onContentsChanged();
-            }
-        }, needSave);
+        super(name, new SyncDataFluidTank(capacity, validator), needSave);
+        get().setSyncData(this);
     }
 
     public FluidTankSyncData(String name, int capacity, boolean needSave) {
@@ -24,7 +20,7 @@ public class FluidTankSyncData extends SyncData<FluidTank> {
     }
 
     @Override
-    public void set(FluidTank value) {
+    public void set(SyncDataFluidTank value) {
     }
 
     @Override
@@ -33,7 +29,32 @@ public class FluidTankSyncData extends SyncData<FluidTank> {
     }
 
     @Override
-    protected FluidTank fromTag(CompoundTag tag) {
+    protected SyncDataFluidTank fromTag(CompoundTag tag) {
         return get().readFromNBT(tag);
+    }
+
+    public static class SyncDataFluidTank extends FluidTank {
+        FluidTankSyncData syncData;
+
+        public SyncDataFluidTank(int capacity, Predicate<FluidStack> validator) {
+            super(capacity, validator);
+        }
+
+        protected void setSyncData(FluidTankSyncData syncData) {
+            this.syncData = syncData;
+        }
+
+        @Override
+        protected void onContentsChanged() {
+            if (syncData != null) {
+                syncData.onChanged();
+            }
+        }
+
+        @Override
+        public SyncDataFluidTank readFromNBT(CompoundTag tag) {
+            super.readFromNBT(tag);
+            return this;
+        }
     }
 }

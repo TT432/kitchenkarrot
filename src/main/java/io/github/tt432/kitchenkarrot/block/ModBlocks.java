@@ -4,6 +4,7 @@ import io.github.tt432.kitchenkarrot.Kitchenkarrot;
 import io.github.tt432.kitchenkarrot.blockentity.AirCompressorBlockEntity;
 import io.github.tt432.kitchenkarrot.blockentity.BrewingBarrelBlockEntity;
 import io.github.tt432.kitchenkarrot.blockentity.ModBlockEntities;
+import io.github.tt432.kitchenkarrot.item.ModItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
@@ -82,6 +83,17 @@ public class ModBlocks {
                                 if (tank.fill(water, IFluidHandler.FluidAction.SIMULATE) == 250) {
                                     changed.set(true);
                                     remain = new ItemStack(Items.GLASS_BOTTLE);
+
+                                    if (!pLevel.isClientSide) {
+                                        tank.fill(water, IFluidHandler.FluidAction.EXECUTE);
+                                    }
+                                }
+                            }
+                            else if (item.getItem() == ModItems.WATER.get()) {
+                                var water = new FluidStack(Fluids.WATER, 125);
+
+                                if (tank.fill(water, IFluidHandler.FluidAction.SIMULATE) == 125) {
+                                    changed.set(true);
 
                                     if (!pLevel.isClientSide) {
                                         tank.fill(water, IFluidHandler.FluidAction.EXECUTE);

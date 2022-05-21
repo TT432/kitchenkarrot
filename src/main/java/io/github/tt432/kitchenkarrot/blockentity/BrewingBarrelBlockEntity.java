@@ -18,6 +18,7 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
+import net.minecraftforge.items.IItemHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -29,7 +30,7 @@ import java.util.List;
 public class BrewingBarrelBlockEntity extends KKBlockEntity {
     FluidTankSyncData input1;
     public KKItemStackHandler input2 = new KKItemStackHandler(this, 6);
-    public KKItemStackHandler result = new KKItemStackHandler(this, 1);
+    private KKItemStackHandler result = new KKItemStackHandler(this, 1);
     private IntSyncData progress;
     private IntSyncData maxProgress;
     private StringSyncData recipe;
@@ -62,7 +63,7 @@ public class BrewingBarrelBlockEntity extends KKBlockEntity {
         if (!level.isClientSide) {
             var inputList = ItemHandlerUtils.toList(input2);
 
-            if (input1.get().getFluidAmount() >= 2000 && !canUseRecipe()) {
+            if (fluidEnough() && !canUseRecipe()) {
                 level.getRecipeManager().getAllRecipesFor(RecipeTypes.BREWING_BARREL.get())
                         .stream().filter(r -> r.matches(inputList)).forEach(r -> {
                             if (result.extractItem(0, 1, true).isEmpty()) {
@@ -79,13 +80,22 @@ public class BrewingBarrelBlockEntity extends KKBlockEntity {
                     }
 
                     input1.get().drain(2000, IFluidHandler.FluidAction.EXECUTE);
+
+                    finishBrewing();
                 }
             }
             else if (getRecipe() != null) {
-                setRecipe(null);
-                setProgress();
+                finishBrewing();
             }
         }
+    }
+
+    public boolean resultEmpty() {
+        return result.getStackInSlot(0).isEmpty();
+    }
+
+    public boolean fluidEnough() {
+        return input1.get().getFluidAmount() >= 2000;
     }
 
     public boolean canUseRecipe() {
@@ -94,6 +104,12 @@ public class BrewingBarrelBlockEntity extends KKBlockEntity {
 
     public boolean isStarted() {
         return started.get();
+    }
+
+    void finishBrewing() {
+        started.set(false);
+        setRecipe(null);
+        setProgress();
     }
 
     void setRecipe(BrewingBarrelRecipe recipe) {
@@ -148,5 +164,9 @@ public class BrewingBarrelBlockEntity extends KKBlockEntity {
 
     public Integer getProgress() {
         return progress.get();
+    }
+
+    public IItemHandler result() {
+        return result;
     }
 }

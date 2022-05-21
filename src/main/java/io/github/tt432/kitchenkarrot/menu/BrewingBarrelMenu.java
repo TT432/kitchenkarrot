@@ -24,6 +24,6 @@ public class BrewingBarrelMenu extends KKBeMenu<BrewingBarrelBlockEntity> {
         addSlot(handler, 4, 54 + 1, 38 + 1);
         addSlot(handler, 5, 72 + 1, 38 + 1);
 
-        addResultSlot(blockEntity.result, 0, 124, 20);
+        addResultSlot(blockEntity.result(), 0, 124 + 1, 20 + 1);
     }
 }
