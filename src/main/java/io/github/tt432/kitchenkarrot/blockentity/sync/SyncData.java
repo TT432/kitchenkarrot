@@ -1,11 +1,13 @@
 package io.github.tt432.kitchenkarrot.blockentity.sync;
 
 import net.minecraft.nbt.CompoundTag;
+import net.minecraftforge.common.util.NonNullSupplier;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * @author DustW
  **/
-public abstract class SyncData<V> {
+public abstract class SyncData<V> implements NonNullSupplier<V> {
     private V value;
     private boolean changed;
     private final String name;
@@ -20,7 +22,8 @@ public abstract class SyncData<V> {
     protected abstract CompoundTag toTag();
     protected abstract V fromTag(CompoundTag tag);
 
-    public V get() {
+    @Override
+    public @NotNull V get() {
         return value;
     }
 

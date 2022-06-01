@@ -3,11 +3,8 @@ package io.github.tt432.kitchenkarrot.blockentity;
 import io.github.tt432.kitchenkarrot.blockentity.sync.SyncDataManager;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.MenuProvider;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;
@@ -20,10 +17,11 @@ import java.util.List;
 /**
  * @author DustW
  **/
-public abstract class KKBlockEntity extends BlockEntity implements MenuProvider {
+public abstract class BaseBlockEntity extends BlockEntity {
+
     SyncDataManager syncDataManager = new SyncDataManager();
 
-    public KKBlockEntity(BlockEntityType<?> pType, BlockPos pWorldPosition, BlockState pBlockState) {
+    public BaseBlockEntity(BlockEntityType<?> pType, BlockPos pWorldPosition, BlockState pBlockState) {
         super(pType, pWorldPosition, pBlockState);
         syncDataInit(syncDataManager);
     }
@@ -76,17 +74,6 @@ public abstract class KKBlockEntity extends BlockEntity implements MenuProvider 
 
     public abstract List<ItemStack> drops();
 
-    @Override
-    public Component getDisplayName() {
-        return new TranslatableComponent(defaultName());
-    }
-
-    String name;
-
-    protected String defaultName() {
-        return name == null ? name = "container." + getType().getRegistryName().toString().replace("/", ".") : name;
-    }
-
     public void sync(Level level) {
         if (!level.isClientSide) {
             ClientboundBlockEntityDataPacket p = ClientboundBlockEntityDataPacket.create(this);
@@ -95,7 +82,7 @@ public abstract class KKBlockEntity extends BlockEntity implements MenuProvider 
         }
     }
 
-    public static void tick(Level level, BlockPos pos, BlockState state, KKBlockEntity e) {
-        e.tick();
+    public static <T extends BaseBlockEntity> void tick(Level level, BlockPos pos, BlockState state, T t) {
+        t.tick();
     }
 }

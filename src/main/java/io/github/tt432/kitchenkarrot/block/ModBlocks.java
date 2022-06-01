@@ -43,7 +43,7 @@ public class ModBlocks {
             DeferredRegister.create(ForgeRegistries.BLOCKS, Kitchenkarrot.MOD_ID);
 
     public static final RegistryObject<Block> AIR_COMPRESSOR = BLOCKS.register("air_compressor",
-            () -> new KKEntityBlock<AirCompressorBlockEntity>(BlockBehaviour.Properties.of(Material.STONE)
+            () -> new FacingGuiEntityBlock<AirCompressorBlockEntity>(BlockBehaviour.Properties.of(Material.STONE)
                     .strength(2.0f, 2.0f)
                     .noOcclusion()) {
                 @Override
@@ -53,7 +53,7 @@ public class ModBlocks {
             });
 
     public static final RegistryObject<Block> BREWING_BARREL = BLOCKS.register("brewing_barrel",
-            () -> new KKEntityBlock<BrewingBarrelBlockEntity>(BlockBehaviour.Properties.of(Material.WOOD)
+            () -> new FacingGuiEntityBlock<BrewingBarrelBlockEntity>(BlockBehaviour.Properties.of(Material.WOOD)
                     .strength(2.0f, 2.0f)
                     .noOcclusion()) {
 
@@ -133,6 +133,10 @@ public class ModBlocks {
     public static final RegistryObject<Block> SUNFLOWER_OIL = oil("sunflower_oil");
     public static final RegistryObject<Block> ACORN_OIL = oil("acorn_oil");
     public static final RegistryObject<Block> CHORUS_OIL = oil("chorus_oil");
+
+    public static final RegistryObject<Block> COASTER = BLOCKS.register("coaster",
+            () -> new CoasterBlock(BlockBehaviour.Properties.of(Material.STONE)
+                    .strength(2.0F, 2.0F)));
 
     private static RegistryObject<Block> oil(String name) {
         return BLOCKS.register(name,

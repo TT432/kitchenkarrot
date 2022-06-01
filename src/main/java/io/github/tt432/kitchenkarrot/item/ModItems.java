@@ -193,6 +193,7 @@ public class ModItems {
 
     public static final RegistryObject<Item> AIR_COMPRESSOR = block("air_compressor", ModBlocks.AIR_COMPRESSOR);
     public static final RegistryObject<Item> BREWING_BARREL = block("brewing_barrel", ModBlocks.BREWING_BARREL);
+    public static final RegistryObject<Item> COASTER = block("coaster", ModBlocks.COASTER);
 
 
     private static RegistryObject<Item> simple(String name) {

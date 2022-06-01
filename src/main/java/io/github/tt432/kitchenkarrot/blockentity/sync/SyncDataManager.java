@@ -11,8 +11,9 @@ import java.util.List;
 public class SyncDataManager {
     private final List<SyncData<?>> syncDataList = new ArrayList<>();
 
-    public void add(SyncData<?> syncData) {
+    public <T, S extends SyncData<T>> S add(S syncData) {
         syncDataList.add(syncData);
+        return syncData;
     }
 
     public void remove(SyncData<?> syncData) {

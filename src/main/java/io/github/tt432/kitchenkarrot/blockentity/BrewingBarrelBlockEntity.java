@@ -1,6 +1,7 @@
 package io.github.tt432.kitchenkarrot.blockentity;
 
 import io.github.tt432.kitchenkarrot.blockentity.sync.*;
+import io.github.tt432.kitchenkarrot.capability.KKItemStackHandler;
 import io.github.tt432.kitchenkarrot.menu.BrewingBarrelMenu;
 import io.github.tt432.kitchenkarrot.recipes.recipe.BrewingBarrelRecipe;
 import io.github.tt432.kitchenkarrot.recipes.register.RecipeTypes;
@@ -27,7 +28,7 @@ import java.util.List;
 /**
  * @author DustW
  **/
-public class BrewingBarrelBlockEntity extends KKBlockEntity {
+public class BrewingBarrelBlockEntity extends MenuBlockEntity {
     FluidTankSyncData input1;
     public KKItemStackHandler input2 = new KKItemStackHandler(this, 6);
     private KKItemStackHandler result = new KKItemStackHandler(this, 1);

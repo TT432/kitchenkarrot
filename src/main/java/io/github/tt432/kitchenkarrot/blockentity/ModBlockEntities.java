@@ -21,4 +21,8 @@ public class ModBlockEntities {
     public static final RegistryObject<BlockEntityType<BrewingBarrelBlockEntity>> BREWING_BARREL =
             BLOCK_ENTITIES.register("brewing_barrel", () -> BlockEntityType.Builder
                     .of(BrewingBarrelBlockEntity::new, ModBlocks.BREWING_BARREL.get()).build(null));
+
+    public static final RegistryObject<BlockEntityType<CoasterBlockEntity>> COASTER =
+            BLOCK_ENTITIES.register("coaster", () -> BlockEntityType.Builder
+                    .of(CoasterBlockEntity::new, ModBlocks.COASTER.get()).build(null));
 }

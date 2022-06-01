@@ -1,6 +1,7 @@
 package io.github.tt432.kitchenkarrot.blockentity;
 
 import io.github.tt432.kitchenkarrot.blockentity.sync.SyncDataManager;
+import io.github.tt432.kitchenkarrot.capability.KKItemStackHandler;
 import io.github.tt432.kitchenkarrot.menu.AirCompressorMenu;
 import io.github.tt432.kitchenkarrot.blockentity.sync.IntSyncData;
 import io.github.tt432.kitchenkarrot.blockentity.sync.StringSyncData;
@@ -32,7 +33,7 @@ import java.util.List;
 /**
  * @author DustW
  **/
-public class AirCompressorBlockEntity extends KKBlockEntity {
+public class AirCompressorBlockEntity extends MenuBlockEntity {
     /** 原料 / 容器输入 */
     ItemStackHandler input1 = new KKItemStackHandler(this, 5) {
         @Override

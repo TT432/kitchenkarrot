@@ -1,4 +1,4 @@
-package io.github.tt432.kitchenkarrot.blockentity;
+package io.github.tt432.kitchenkarrot.capability;
 
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.items.ItemStackHandler;
