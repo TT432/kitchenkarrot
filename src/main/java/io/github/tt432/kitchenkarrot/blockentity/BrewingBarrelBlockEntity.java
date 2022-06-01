@@ -42,12 +42,12 @@ public class BrewingBarrelBlockEntity extends KKBlockEntity {
     }
 
     @Override
-    protected void syncDataInit(List<SyncData<?>> list) {
-        list.add(input1 = new FluidTankSyncData("fluid",4000, (f) -> f.getFluid() == Fluids.WATER, true));
-        list.add(progress = new IntSyncData("progress", 0, true));
-        list.add(maxProgress = new IntSyncData("maxProgress", 0, true));
-        list.add(recipe = new StringSyncData("recipe", "", true));
-        list.add(started = new BoolSyncData("started", false, true));
+    protected void syncDataInit(SyncDataManager manager) {
+        manager.add(input1 = new FluidTankSyncData("fluid",4000, (f) -> f.getFluid() == Fluids.WATER, true));
+        manager.add(progress = new IntSyncData("progress", 0, true));
+        manager.add(maxProgress = new IntSyncData("maxProgress", 0, true));
+        manager.add(recipe = new StringSyncData("recipe", "", true));
+        manager.add(started = new BoolSyncData("started", false, true));
     }
 
     public BrewingBarrelRecipe getRecipe() {

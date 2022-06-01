@@ -1,9 +1,9 @@
 package io.github.tt432.kitchenkarrot.blockentity;
 
+import io.github.tt432.kitchenkarrot.blockentity.sync.SyncDataManager;
 import io.github.tt432.kitchenkarrot.menu.AirCompressorMenu;
 import io.github.tt432.kitchenkarrot.blockentity.sync.IntSyncData;
 import io.github.tt432.kitchenkarrot.blockentity.sync.StringSyncData;
-import io.github.tt432.kitchenkarrot.blockentity.sync.SyncData;
 import io.github.tt432.kitchenkarrot.recipes.recipe.AirCompressorRecipe;
 import io.github.tt432.kitchenkarrot.recipes.register.RecipeManager;
 import io.github.tt432.kitchenkarrot.tag.ModItemTags;
@@ -73,11 +73,11 @@ public class AirCompressorBlockEntity extends KKBlockEntity {
     AirCompressorRecipe recipe;
 
     @Override
-    protected void syncDataInit(List<SyncData<?>> list) {
-        list.add(burnTime = new IntSyncData("burn_time", 0, true));
-        list.add(recipeId = new StringSyncData("recipe", "", true));
-        list.add(progress = new IntSyncData("progress", 0, true));
-        list.add(maxBurnTime = new IntSyncData("max_burn_time", 0, true));
+    protected void syncDataInit(SyncDataManager manager) {
+        manager.add(burnTime = new IntSyncData("burn_time", 0, true));
+        manager.add(recipeId = new StringSyncData("recipe", "", true));
+        manager.add(progress = new IntSyncData("progress", 0, true));
+        manager.add(maxBurnTime = new IntSyncData("max_burn_time", 0, true));
     }
 
     public AirCompressorRecipe getRecipe() {

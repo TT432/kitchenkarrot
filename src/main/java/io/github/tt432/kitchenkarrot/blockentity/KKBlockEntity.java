@@ -1,6 +1,6 @@
 package io.github.tt432.kitchenkarrot.blockentity;
 
-import io.github.tt432.kitchenkarrot.blockentity.sync.SyncData;
+import io.github.tt432.kitchenkarrot.blockentity.sync.SyncDataManager;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -15,22 +15,21 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  * @author DustW
  **/
 public abstract class KKBlockEntity extends BlockEntity implements MenuProvider {
-    List<SyncData<?>> syncDataList = new ArrayList<>();
+    SyncDataManager syncDataManager = new SyncDataManager();
 
     public KKBlockEntity(BlockEntityType<?> pType, BlockPos pWorldPosition, BlockState pBlockState) {
         super(pType, pWorldPosition, pBlockState);
-        syncDataInit(syncDataList);
+        syncDataInit(syncDataManager);
     }
 
     /** 如果你有一些需要自动同步的内容，请放到这里面 */
-    protected void syncDataInit(List<SyncData<?>> list) {
+    protected void syncDataInit(SyncDataManager manager) {
 
     }
 
@@ -47,26 +46,13 @@ public abstract class KKBlockEntity extends BlockEntity implements MenuProvider 
     @Override
     public void load(CompoundTag pTag) {
         super.load(pTag);
-        if (isSyncTag(pTag)) {
-            syncDataList.forEach(data -> data.load(pTag));
-        }
-        else {
-            syncDataList.forEach(data -> {
-                if (data.needSave) {
-                    data.load(pTag);
-                }
-            });
-        }
+        syncDataManager.load(pTag, isSyncTag(pTag));
     }
 
     @Override
     protected void saveAdditional(CompoundTag pTag) {
         super.saveAdditional(pTag);
-        syncDataList.forEach(data -> {
-            if (data.needSave) {
-                data.save(pTag, true);
-            }
-        });
+        syncDataManager.save(pTag, false, true);
     }
 
     boolean forceOnce;
@@ -79,7 +65,7 @@ public abstract class KKBlockEntity extends BlockEntity implements MenuProvider 
     public CompoundTag getUpdateTag() {
         CompoundTag result = new CompoundTag();
         result.putBoolean(SYNC_KEY, true);
-        syncDataList.forEach(data -> data.save(result, forceOnce));
+        syncDataManager.save(result, true, forceOnce);
 
         if (forceOnce) {
             forceOnce = false;
