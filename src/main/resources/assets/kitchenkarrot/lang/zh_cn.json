@@ -168,6 +168,8 @@
     "container.kitchenkarrot:brewing_barrel":"",
     "brewing_barrel.error.not_enough_liquid":"没有足够的水",
 
+    "container.kitchenkarrot:air_compressor":"空气压缩机",
+
     "kitchenkarrot:brewing_barrel":"酿造桶",
     "kitchenkarrot:air_compressor":"空气压缩",
     "kitchenkarrot:cocktail":"摇酒"

@@ -168,6 +168,8 @@
     "container.kitchenkarrot:brewing_barrel":"",
     "brewing_barrel.error.not_enough_liquid":"Not Enough Water",
 
+    "container.kitchenkarrot:air_compressor":"Air Compressor",
+
     "kitchenkarrot:brewing_barrel":"Brewing",
     "kitchenkarrot:air_compressor":"Air Compressing",
     "kitchenkarrot:cocktail":"Shaking"
