@@ -5,6 +5,7 @@
   "compatibilityLevel": "JAVA_8",
   "refmap": "kitchenkarrot.refmap.json",
   "mixins": [
+    "MixinLivingEntity"
   ],
   "client": [
   ],

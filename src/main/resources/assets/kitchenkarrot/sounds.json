@@ -1,4 +1,18 @@
 {
+  "cocktail.shaker": {
+    "replace": false,
+    "subtitle": "kitchenkarrot.cocktail.shaker",
+    "sounds": [
+      "kitchenkarrot:cocktail/shaker"
+    ]
+  },
+  "cocktail.complete": {
+    "replace": false,
+    "subtitle": "kitchenkarrot.cocktail.complete",
+    "sounds": [
+      "kitchenkarrot:cocktail/cocktail_complete"
+    ]
+  },
   "cocktail.chop": {
     "replace": false,
     "subtitle": "kitchenkarrot.cocktail.chop",

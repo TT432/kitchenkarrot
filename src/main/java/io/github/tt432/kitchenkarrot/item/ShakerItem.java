@@ -66,6 +66,8 @@ public class ShakerItem extends Item {
     @Override
     public ItemStack finishUsingItem(ItemStack pStack, Level pLevel, LivingEntity pLivingEntity) {
         setFinish(pStack, true);
+        pLivingEntity.playSound(ModSoundEvents.COCKTAIL_COMPLETE.get(), 0.5F,
+                pLevel.random.nextFloat() * 0.1F + 0.9F);
         return pStack;
     }
 
