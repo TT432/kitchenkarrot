@@ -36,12 +36,16 @@ public class ShakerMenu extends KKMenu {
         }
 
         addSlots();
-        finishRecipe();
+        finishRecipe(inventory.player);
     }
 
-    private void finishRecipe() {
+    private void finishRecipe(Player player) {
         if (ShakerItem.getFinish(itemStack)) {
             itemStack.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(handler -> {
+                if (player.level.isClientSide) {
+                    return;
+                }
+
                 var list = getInputs(handler);
 
                 var recipe = RecipeManager.getCocktailRecipes(inventory.player.level).stream()

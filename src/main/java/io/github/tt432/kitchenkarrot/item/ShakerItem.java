@@ -3,12 +3,15 @@ package io.github.tt432.kitchenkarrot.item;
 import io.github.tt432.kitchenkarrot.capability.ShakerCapabilityProvider;
 import io.github.tt432.kitchenkarrot.menu.ShakerMenu;
 import io.github.tt432.kitchenkarrot.sound.ModSoundEvents;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.resources.sounds.SimpleSoundInstance;
+import net.minecraft.client.resources.sounds.SoundInstance;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.SimpleMenuProvider;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -48,8 +51,22 @@ public class ShakerItem extends Item {
 
                 return InteractionResultHolder.sidedSuccess(stack, pLevel.isClientSide);
             }
-            else if (!pLevel.isClientSide && !getFinish(stack)) {
-                pPlayer.startUsingItem(pUsedHand);
+            else if (!getFinish(stack)) {
+                if (!pLevel.isClientSide) {
+                    pPlayer.startUsingItem(pUsedHand);
+                }
+                else {
+                    Minecraft.getInstance().getSoundManager().play(
+                            new SimpleSoundInstance(
+                                    ModSoundEvents.SHAKER.get().getLocation(),
+                                    pPlayer.getSoundSource(),
+                                    0.5F, pLevel.random.nextFloat() * 0.1F + 0.9F,
+                                    true, 0,
+                                    SoundInstance.Attenuation.LINEAR,
+                                    pPlayer.getX(), pPlayer.getY(), pPlayer.getZ(),
+                                    true)
+                    );
+                }
 
                 return InteractionResultHolder.success(stack);
             }
@@ -59,15 +76,26 @@ public class ShakerItem extends Item {
     }
 
     @Override
-    public SoundEvent getDrinkingSound() {
-        return super.getDrinkingSound();
+    public void inventoryTick(ItemStack pStack, Level pLevel, Entity pEntity, int pSlotId, boolean pIsSelected) {
+        if (pLevel.isClientSide && pEntity instanceof Player player) {
+            if (player.getUseItem() != pStack) {
+                Minecraft.getInstance().getSoundManager().stop(ModSoundEvents.SHAKER.get().getLocation(),
+                        player.getSoundSource());
+            }
+        }
+
+        super.inventoryTick(pStack, pLevel, pEntity, pSlotId, pIsSelected);
     }
 
     @Override
     public ItemStack finishUsingItem(ItemStack pStack, Level pLevel, LivingEntity pLivingEntity) {
-        setFinish(pStack, true);
-        pLivingEntity.playSound(ModSoundEvents.COCKTAIL_COMPLETE.get(), 0.5F,
-                pLevel.random.nextFloat() * 0.1F + 0.9F);
+        if (pLivingEntity instanceof Player player) {
+            setFinish(pStack, true);
+            Minecraft.getInstance().getSoundManager().stop(ModSoundEvents.SHAKER.get().getLocation(),
+                    player.getSoundSource());
+            pLivingEntity.playSound(ModSoundEvents.COCKTAIL_COMPLETE.get(), 0.5F,
+                    pLevel.random.nextFloat() * 0.1F + 0.9F);
+        }
         return pStack;
     }
 
@@ -110,6 +138,7 @@ public class ShakerItem extends Item {
         var result = Objects.requireNonNullElse(super.getShareTag(stack), new CompoundTag());
         stack.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)
                 .ifPresent(h -> result.put("items", ((ItemStackHandler) h).serializeNBT()));
+        result.putBoolean("finish", getFinish(stack));
         return result;
     }
 
@@ -120,6 +149,7 @@ public class ShakerItem extends Item {
         if (nbt != null) {
             stack.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)
                     .ifPresent(h -> ((ItemStackHandler) h).deserializeNBT(nbt.getCompound("items")));
+            setFinish(stack, nbt.getBoolean("finish"));
         }
     }
 }
