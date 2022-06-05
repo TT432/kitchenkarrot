@@ -13,7 +13,7 @@ import java.util.List;
  * @author DustW
  **/
 public abstract class BaseRecipe<SELF extends BaseRecipe<SELF>> implements Recipe<Container> {
-    @Expose(serialize = false)
+    @Expose(deserialize = false, serialize = false)
     ResourceLocation id;
     @Expose
     public String type;
