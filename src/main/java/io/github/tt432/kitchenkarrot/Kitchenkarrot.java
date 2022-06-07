@@ -22,14 +22,14 @@ public class Kitchenkarrot {
     public static final CreativeModeTab MAIN_TAB = new CreativeModeTab(MOD_ID + ".main") {
         @Override
         public ItemStack makeIcon() {
-            return ItemStack.EMPTY;
+            return new ItemStack(ModItems.CARROT_SPICES.get());
         }
     };
 
     public static final CreativeModeTab COCKTAIL_TAB = new CreativeModeTab(MOD_ID + ".cocktail") {
         @Override
         public ItemStack makeIcon() {
-            return ItemStack.EMPTY;
+            return new ItemStack(ModItems.SHAKER.get());
         }
     };
 
