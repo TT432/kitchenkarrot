@@ -18,7 +18,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 /**
  * @author DustW
  **/
-public class CoasterBlock extends ModBaseEntityBlock<CoasterBlockEntity> {
+public class CoasterBlock extends FacingEntityBlock<CoasterBlockEntity> {
     public CoasterBlock(Properties p_49795_) {
         super(p_49795_);
     }
