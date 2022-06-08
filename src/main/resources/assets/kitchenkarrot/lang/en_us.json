@@ -38,7 +38,7 @@
     "item.kitchenkarrot.mead":"Mead",
     "item.kitchenkarrot.rum":"Rum",
     "item.kitchenkarrot.glow_berry_lager":"Glow Berry Lager",
-    "item.kitchenkarrot.iced_melon_lager":"Iced Melon Lager",
+    "item.kitchenkarrot.iced_melon_lager":"Iced Watermelon Lager",
     "item.kitchenkarrot.raw_veggie_beef":"Raw Veggie Beef",
     "item.kitchenkarrot.cooked_veggie_beef":"Cooked Veggie Beef",
     "item.kitchenkarrot.raw_veggie_pork":"Raw Veggie Pork",
@@ -173,8 +173,24 @@
 
     "kitchenkarrot:brewing_barrel":"Brewing",
     "kitchenkarrot:air_compressor":"Air Compressing",
-    "kitchenkarrot:cocktail":"Shaking"
+    "kitchenkarrot:cocktail":"Shaking",
 
-
-
+    "advancement.kitchenkarrot.root.title":"Kitchen Karrot",
+    "advancement.kitchenkarrot.root.desc":"The beginning of your gourmet journey",
+    "advancement.kitchenkarrot.plant_carrot.title":"Where It All Begins...",
+    "advancement.kitchenkarrot.plant_carrot.desc":"Plant some carrots,they are quite tasty",
+    "advancement.kitchenkarrot.get_gem_carrot.title":"We Are Gonna Be Rich!",
+    "advancement.kitchenkarrot.get_gem_carrot.desc":"Keep on farming until fully understand the value of carrots",
+    "advancement.kitchenkarrot.vegetarian.title":"A Vegetarian Fashion",
+    "advancement.kitchenkarrot.vegetarian.desc":"Eat every kind of veggie meat in kitchen karrot,for your own good",
+    "advancement.kitchenkarrot.drink_dgcoke.title":"I Need a Mint",
+    "advancement.kitchenkarrot.drink_dgcoke.desc":"Maybe it's way too hardcore...",
+    "advancement.kitchenkarrot.get_acorn.title":"Secrets between the Leaves",
+    "advancement.kitchenkarrot.get_acorn.desc":"Get some acorn from oak saplings for future use",
+    "advancement.kitchenkarrot.place_brewing_barrel.title":"The Enlightenment",
+    "advancement.kitchenkarrot.place_brewing_barrel.desc":"One brewing barrel could save this boring world",
+    "advancement.kitchenkarrot.drink_liquor.title":"Cheers!",
+    "advancement.kitchenkarrot.drink_liquor.desc":"Drink your very first drop of alcohol",
+    "advancement.kitchenkarrot.get_cocktail.title":"Art of Bartending",
+    "advancement.kitchenkarrot.get_cocktail.desc":"Use your shaker to feel the collision of liquid,and pour whatever you get"
 }
