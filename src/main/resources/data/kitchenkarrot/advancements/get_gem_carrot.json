@@ -8,7 +8,7 @@
       "translate": "advancement.kitchenkarrot.get_gem_carrot.title"
     },
     "description": {
-      "translate": "advancement.kitchenkarrot.get_gem_carrot_desc"
+      "translate": "advancement.kitchenkarrot.get_gem_carrot.desc"
     },
     "frame": "task",
     "show_toast": true,
