@@ -3,9 +3,8 @@ package io.github.tt432.kitchenkarrot.item;
 import io.github.tt432.kitchenkarrot.capability.ShakerCapabilityProvider;
 import io.github.tt432.kitchenkarrot.menu.ShakerMenu;
 import io.github.tt432.kitchenkarrot.sound.ModSoundEvents;
+import io.github.tt432.kitchenkarrot.util.SoundUtil;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.resources.sounds.SimpleSoundInstance;
-import net.minecraft.client.resources.sounds.SoundInstance;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
@@ -56,16 +55,7 @@ public class ShakerItem extends Item {
                     pPlayer.startUsingItem(pUsedHand);
                 }
                 else {
-                    Minecraft.getInstance().getSoundManager().play(
-                            new SimpleSoundInstance(
-                                    ModSoundEvents.SHAKER.get().getLocation(),
-                                    pPlayer.getSoundSource(),
-                                    0.5F, pLevel.random.nextFloat() * 0.1F + 0.9F,
-                                    true, 0,
-                                    SoundInstance.Attenuation.LINEAR,
-                                    pPlayer.getX(), pPlayer.getY(), pPlayer.getZ(),
-                                    true)
-                    );
+                    SoundUtil.shakerSound(pPlayer, pLevel);
                 }
 
                 return InteractionResultHolder.success(stack);
@@ -91,10 +81,13 @@ public class ShakerItem extends Item {
     public ItemStack finishUsingItem(ItemStack pStack, Level pLevel, LivingEntity pLivingEntity) {
         if (pLivingEntity instanceof Player player) {
             setFinish(pStack, true);
-            Minecraft.getInstance().getSoundManager().stop(ModSoundEvents.SHAKER.get().getLocation(),
-                    player.getSoundSource());
-            pLivingEntity.playSound(ModSoundEvents.COCKTAIL_COMPLETE.get(), 0.5F,
-                    pLevel.random.nextFloat() * 0.1F + 0.9F);
+
+            if (pLevel.isClientSide) {
+                Minecraft.getInstance().getSoundManager().stop(ModSoundEvents.SHAKER.get().getLocation(),
+                        player.getSoundSource());
+                pLivingEntity.playSound(ModSoundEvents.COCKTAIL_COMPLETE.get(), 0.5F,
+                        pLevel.random.nextFloat() * 0.1F + 0.9F);
+            }
         }
         return pStack;
     }
