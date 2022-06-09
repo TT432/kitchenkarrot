@@ -20,7 +20,8 @@ public class CoasterBlockEntityRenderer implements BlockEntityRenderer<CoasterBl
         pBlockEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(handler -> {
             poseStack.pushPose();
 
-            poseStack.translate(0.5, .35, 0.5);
+            poseStack.translate(0.5, 4 / 16., 0.5);
+            poseStack.scale(1.7f, 1.7f, 1.7f);
 
             var state = pBlockEntity.getBlockState();
 

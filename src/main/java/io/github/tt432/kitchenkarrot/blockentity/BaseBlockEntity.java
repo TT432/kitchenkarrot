@@ -45,6 +45,10 @@ public abstract class BaseBlockEntity extends BlockEntity {
     public void load(CompoundTag pTag) {
         super.load(pTag);
         syncDataManager.load(pTag, isSyncTag(pTag));
+
+        if (!isSyncTag(pTag)) {
+            forceOnce();
+        }
     }
 
     @Override
