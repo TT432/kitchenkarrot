@@ -173,6 +173,24 @@
 
     "kitchenkarrot:brewing_barrel":"酿造桶",
     "kitchenkarrot:air_compressor":"空气压缩",
-    "kitchenkarrot:cocktail":"摇酒"
+    "kitchenkarrot:cocktail":"摇酒",
 
+    "advancement.kitchenkarrot.root.title":"胡萝卜厨房",
+    "advancement.kitchenkarrot.root.desc":"你的美食之旅的起点",
+    "advancement.kitchenkarrot.plant_carrot.title":"从胡萝卜开始……",
+    "advancement.kitchenkarrot.plant_carrot.desc":"种一点胡萝卜——它们挺好吃的",
+    "advancement.kitchenkarrot.get_gem_carrot.title":"我们要发财啦！",
+    "advancement.kitchenkarrot.get_gem_carrot.desc":"坚持下去，直到理解胡萝卜的价值",
+    "advancement.kitchenkarrot.vegetarian.title":"素食主义新潮",
+    "advancement.kitchenkarrot.vegetarian.desc":"尝遍胡萝卜厨房的每一种素肉",
+    "advancement.kitchenkarrot.drink_dgcoke.title":"我需要一点薄荷糖",
+    "advancement.kitchenkarrot.drink_dgcoke.desc":"这样的口味对人类来说为时尚早……",
+    "advancement.kitchenkarrot.get_acorn.title":"树叶间的秘密",
+    "advancement.kitchenkarrot.get_acorn.desc":"从橡树树苗里得到一些橡果，留着备用",
+    "advancement.kitchenkarrot.place_brewing_barrel.title":"启蒙之路",
+    "advancement.kitchenkarrot.place_brewing_barrel.desc":"一个酿造桶，或许可以拯救这个乏味的世界",
+    "advancement.kitchenkarrot.drink_liquor.title":"干杯！",
+    "advancement.kitchenkarrot.drink_liquor.desc":"饮下你的第一瓶酒",
+    "advancement.kitchenkarrot.get_cocktail.title":"调酒的艺术",
+    "advancement.kitchenkarrot.get_cocktail.desc":"从你的摇酒壶里倒出地道的鸡尾酒"
 }
