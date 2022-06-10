@@ -27,6 +27,7 @@
     }
   ],
   "result": {
-    "item": "kitchenkarrot:pickled_sea_pickles"
+    "item": "kitchenkarrot:pickled_sea_pickles",
+    "count":2
   }
 }
