@@ -197,7 +197,15 @@ public class ModItems {
 
     static {
         if (Kitchenkarrot.farmersdelightLoaded) {
-            food("shili", 1, 1);
+            food("carrot_pie_slice", 3, 0.5);
+            food("glow_berry_cookie", 2, 0.2);
+            foodEffectRemain("chicken_hotpot_with_rice", 10, 12F, Items.BOWL,
+                    EffectEntry.of(MobEffects.NOURISHMENT, 180, 1),EffectEntry.of(MobEffects.COMFORT, 180, 1));
+            foodEffectRemain("rice_noodles", 14, 8F, Items.BOWL,
+                    EffectEntry.of(MobEffects.NOURISHMENT, 300, 1));
+            foodEffect("bamboo_rice", 9, 7.2F,
+                        EffectEntry.of(MobEffects.NOURISHMENT, 180, 1));
+            foodEffectRemain("carrot_conference", 10, 8F, Items.BOWL);
         }
 
         if (Kitchenkarrot.neapolitanLoaded) {
