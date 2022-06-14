@@ -195,6 +195,15 @@ public class ModItems {
     public static final RegistryObject<Item> BREWING_BARREL = block("brewing_barrel", ModBlocks.BREWING_BARREL);
     public static final RegistryObject<Item> COASTER = block("coaster", ModBlocks.COASTER);
 
+    static {
+        if (Kitchenkarrot.farmersdelightLoaded) {
+            food("shili", 1, 1);
+        }
+
+        if (Kitchenkarrot.neapolitanLoaded) {
+
+        }
+    }
 
     private static RegistryObject<Item> simple(String name) {
         return ITEMS.register(name, () -> new Item(defaultProperties()));

@@ -9,6 +9,7 @@ import io.github.tt432.kitchenkarrot.recipes.register.RecipeManager;
 import io.github.tt432.kitchenkarrot.sound.ModSoundEvents;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
@@ -33,7 +34,14 @@ public class Kitchenkarrot {
         }
     };
 
+    public static boolean farmersdelightLoaded;
+    public static boolean neapolitanLoaded;
+
     public Kitchenkarrot() {
+        farmersdelightLoaded = ModList.get().isLoaded("farmersdelight");
+        neapolitanLoaded = ModList.get().isLoaded("neapolitan");
+
+
         var bus = FMLJavaModLoadingContext.get().getModEventBus();
         ModBlocks.BLOCKS.register(bus);
         ModItems.ITEMS.register(bus);
