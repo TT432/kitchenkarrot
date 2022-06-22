@@ -7,7 +7,7 @@
   ],
   "key": {
     "1": {
-      "item": "minecraft:chorus_fruit"
+      "tag": "forge:slime_balls"
     },
     "2": {
       "item": "minecraft:bone_meal"
@@ -23,6 +23,6 @@
     }
   },
   "result": {
-    "item": "kitchenkarrot:chorus_mousse"
+    "item": "kitchenkarrot:slime_mousse"
   }
 }
