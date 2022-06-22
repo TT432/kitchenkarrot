@@ -14,5 +14,6 @@ public class BlockEntityRegistry {
     @SubscribeEvent
     public static void onEvent(EntityRenderersEvent.RegisterRenderers event) {
         event.registerBlockEntityRenderer(ModBlockEntities.COASTER.get(), (c) -> new CoasterBlockEntityRenderer());
+        event.registerBlockEntityRenderer(ModBlockEntities.PLATE.get(), (c) -> new PlateBlockEntityRenderer());
     }
 }

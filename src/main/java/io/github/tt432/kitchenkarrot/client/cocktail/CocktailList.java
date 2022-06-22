@@ -1,4 +1,4 @@
-package io.github.tt432.kitchenkarrot.client;
+package io.github.tt432.kitchenkarrot.client.cocktail;
 
 import java.util.ArrayList;
 import java.util.List;
