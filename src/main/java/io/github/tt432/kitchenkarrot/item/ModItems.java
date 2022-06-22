@@ -49,6 +49,8 @@ public class ModItems {
     public static final RegistryObject<Item> SASHIMI = food("sashimi", 4, 2.4F);
     public static final RegistryObject<Item> CHORUS_MOUSSE = food("chorus_mousse", 12, 14.4F);
     public static final RegistryObject<Item> SMALL_CHORUS_MOUSSE = food("small_chorus_mousse", 4, 4.8F);
+    public static final RegistryObject<Item> SLIME_MOUSSE = food("slime_mousse", 12, 14.4F);
+    public static final RegistryObject<Item> SMALL_SLIME_MOUSSE = food("small_slime_mousse", 4, 4.8F);
     public static final RegistryObject<Item> FEAST_PIZZA_SLICE = food("feast_pizza_slice", 10, 12.8F);
     public static final RegistryObject<Item> SHINY_PIZZA_SLICE = food("shiny_pizza_slice", 7, 24);
     public static final RegistryObject<Item> FRIES = food("fries", 7, 10.8F);
@@ -63,6 +65,7 @@ public class ModItems {
     public static final RegistryObject<Item> COOKED_VEGGIE_PORK = food("cooked_veggie_pork", 8, 12.8F);
     public static final RegistryObject<Item> RAW_VEGGIE_RABBIT = food("raw_veggie_rabbit", 2, 1.2F);
     public static final RegistryObject<Item> COOKED_VEGGIE_RABBIT = food("cooked_veggie_rabbit", 6, 7.2F);
+    public static final RegistryObject<Item> CURRY_UDON = food("curry_udon", 10, 14.4F);
 
     public static final RegistryObject<Item> FRIED_PUMPKIN_CAKE = fastFood("fried_pumpkin_cake", 4, 3.2F, 24);
     public static final RegistryObject<Item> SEED_PIE = fastFood("seed_pie", 4, 2.4F, 24);
