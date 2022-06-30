@@ -25,4 +25,8 @@ public class ModBlockEntities {
     public static final RegistryObject<BlockEntityType<CoasterBlockEntity>> COASTER =
             BLOCK_ENTITIES.register("coaster", () -> BlockEntityType.Builder
                     .of(CoasterBlockEntity::new, ModBlocks.COASTER.get()).build(null));
+
+    public static final RegistryObject<BlockEntityType<PlateBlockEntity>> PLATE =
+            BLOCK_ENTITIES.register("plate", () -> BlockEntityType.Builder
+                    .of(PlateBlockEntity::new, ModBlocks.PLATE.get()).build(null));
 }
