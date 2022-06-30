@@ -11,7 +11,7 @@
       "item": "minecraft:birch_sapling"
     },
     {
-      "item": "minecraft:water_bottle"
+      "tag": "forge:water"
     }
   ],
   "result": {
