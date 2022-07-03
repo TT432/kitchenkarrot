@@ -4,6 +4,7 @@ import io.github.tt432.kitchenkarrot.recipes.base.BaseSerializer;
 import io.github.tt432.kitchenkarrot.recipes.recipe.AirCompressorRecipe;
 import io.github.tt432.kitchenkarrot.recipes.recipe.BrewingBarrelRecipe;
 import io.github.tt432.kitchenkarrot.recipes.recipe.CocktailRecipe;
+import io.github.tt432.kitchenkarrot.recipes.recipe.PlateRecipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
@@ -25,6 +26,9 @@ public class RecipeSerializers {
 
     public static final RegistryObject<BaseSerializer<?>> BREWING_BARREL =
             SERIALIZER.register("brewing_barrel", () -> new BaseSerializer<>(BrewingBarrelRecipe.class));
+
+    public static final RegistryObject<BaseSerializer<?>> PLATE =
+            SERIALIZER.register("plate", () -> new BaseSerializer<>(PlateRecipe.class));
 
 
     public static void register(IEventBus bus) {

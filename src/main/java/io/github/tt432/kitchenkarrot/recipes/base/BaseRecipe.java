@@ -27,12 +27,12 @@ public abstract class BaseRecipe<SELF extends BaseRecipe<SELF>> implements Recip
 
     @Override
     public ItemStack assemble(Container pContainer) {
-        return ItemStack.EMPTY;
+        return getResultItem();
     }
 
     @Override
     public boolean canCraftInDimensions(int pWidth, int pHeight) {
-        return false;
+        return true;
     }
 
     public SELF setID(ResourceLocation id) {

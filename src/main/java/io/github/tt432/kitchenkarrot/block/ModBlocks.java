@@ -138,6 +138,10 @@ public class ModBlocks {
             () -> new CoasterBlock(BlockBehaviour.Properties.of(Material.STONE)
                     .strength(2.0F, 2.0F).noCollission()));
 
+    public static final RegistryObject<Block> PLATE = BLOCKS.register("plate",
+            () -> new PlateBlock(BlockBehaviour.Properties.of(Material.STONE)
+                    .strength(2.0F, 2.0F).noCollission()));
+
     private static RegistryObject<Block> oil(String name) {
         return BLOCKS.register(name,
                 () -> new Block(BlockBehaviour.Properties.of(Material.STONE).noOcclusion()
