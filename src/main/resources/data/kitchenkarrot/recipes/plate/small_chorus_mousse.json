@@ -1,7 +1,7 @@
 {
+  "type": "kitchenkarrot:plate",
   "item": {
     "item": "kitchenkarrot:small_chorus_mousse",
     "maxCount": 4
-  },
-  "type": "kitchenkarrot:plate"
+  }
 }

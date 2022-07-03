@@ -16,7 +16,7 @@
       "item": "minecraft:sugar"
     },
     "4": {
-      "tag": "forge:milk"
+      "item": "kitchenkarrot:ice_cubes"
     },
     "5": {
       "tag": "forge:crops/wheat"
